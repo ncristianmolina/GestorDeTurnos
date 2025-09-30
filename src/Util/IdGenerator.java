@@ -1,4 +1,4 @@
-package Modelos;
+package Util;
 
 public class IdGenerator {
     private static int personaCount = 0;

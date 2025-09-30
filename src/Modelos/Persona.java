@@ -1,5 +1,7 @@
 package Modelos;
 
+import Util.IdGenerator;
+
 public abstract class Persona {
 
     private int id;
