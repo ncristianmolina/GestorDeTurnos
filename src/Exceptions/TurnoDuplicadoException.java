@@ -1,4 +1,7 @@
 package Exceptions;
 
-public class TurnoDuplicadoException {
+public class TurnoDuplicadoException extends RuntimeException {
+    public TurnoDuplicadoException(String message) {
+        super(message);
+    }
 }

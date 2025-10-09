@@ -1,4 +1,7 @@
 package Exceptions;
 
-public class ArchivoException {
+public class ArchivoException extends RuntimeException {
+    public ArchivoException(String message) {
+        super(message);
+    }
 }

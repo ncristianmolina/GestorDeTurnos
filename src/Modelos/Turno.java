@@ -16,6 +16,7 @@ public class Turno implements Reservable {
         this.fecha = fecha;
         this.hora = hora;
         this.estado = estado;
+
         this.cliente = cliente;
     }
 
