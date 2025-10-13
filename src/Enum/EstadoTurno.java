@@ -4,5 +4,6 @@ public enum EstadoTurno {
     PENDIENTE,
     CANCELADO,
     COMPLETADO,
-    HOLA
+    HOLA,
+    CHAU
 }
