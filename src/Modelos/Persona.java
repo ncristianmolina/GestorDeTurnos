@@ -4,20 +4,20 @@ import Util.IdGenerator;
 
 public abstract class Persona {
 
-    private int id;
+    private String dni;
     private String nombre;
     private String apellido;
     private String email;
 
-    public Persona(int id, String nombre, String apellido, String email) {
-        this.id = IdGenerator.nextPersonaId();
+    public Persona(String dni, String nombre, String apellido, String email) {
+        this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public String getDni() {
+        return dni;
     }
 
 

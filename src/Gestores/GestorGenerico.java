@@ -6,7 +6,7 @@ import java.util.List;
 public class GestorGenerico<T> {
     private List<T> lista;
 
-    public Gestor() {
+    public GestorGenerico() {
         this.lista = new ArrayList<>();
     }
 
