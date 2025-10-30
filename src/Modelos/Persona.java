@@ -8,18 +8,25 @@ public abstract class Persona {
     private String nombre;
     private String apellido;
     private String email;
+    private String password;
+    private String usuario;
 
-    public Persona(String dni, String nombre, String apellido, String email) {
+    public Persona(String dni, String nombre, String apellido, String email, String password, String usuario) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+        this.password = password;
+        this.usuario = usuario;
     }
 
     public String getDni() {
         return dni;
     }
 
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
     public String getNombre() {
         return nombre;
@@ -43,5 +50,21 @@ public abstract class Persona {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }
