@@ -1,22 +1,28 @@
 package Util;
 
+/**
+ * Generador de IDs autoincrementales solo para Turnos.
+ * Debe ser inicializado al cargar los datos desde el archivo.
+ */
 public class IdGenerator {
-    private static int personaCount = 0;
+
+    // El contador se mantiene estático
     private static int turnoCount = 0;
 
-    public static int nextPersonaId() {
-        return ++personaCount;
-    }
-
+    /**
+     * Devuelve el siguiente ID de turno disponible.
+     * @return un ID de turno único.
+     */
     public static int nextTurnoId() {
+        // Incrementa y luego retorna (1, 2, 3...)
         return ++turnoCount;
     }
 
-    // Para sincronizar con archivo al iniciar
-    public static void setPersonaCount(int lastId) {
-        personaCount = lastId;
-    }
-
+    /**
+     * Sincroniza el contador con el último ID más alto
+     * encontrado en el archivo de persistencia.
+     * @param lastId El ID más alto encontrado en los datos.
+     */
     public static void setTurnoCount(int lastId) {
         turnoCount = lastId;
     }
