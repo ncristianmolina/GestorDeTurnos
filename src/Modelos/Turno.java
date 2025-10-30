@@ -10,6 +10,7 @@ public class Turno implements Reservable {
     private LocalTime hora;
     private EstadoTurno estado;
     private Cliente cliente;
+    
 
     public Turno(int idTurno, LocalDate fecha, LocalTime hora, EstadoTurno estado, Cliente cliente) {
         this.idTurno = idTurno;
