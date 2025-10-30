@@ -16,3 +16,7 @@ public class Cliente extends Persona{
         this.telefono = telefono;
     }
 }
+
+
+/*** Generar JSOM**/
+/**@Lu **/
