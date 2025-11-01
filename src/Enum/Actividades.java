@@ -1,6 +1,6 @@
 package Enum;
 
-public enum Actividad {
+public enum Actividades {
     FUNCIONAL,
     MUSCULACION,
     SPINNING,

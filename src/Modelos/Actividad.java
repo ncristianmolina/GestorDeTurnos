@@ -1,7 +1,9 @@
 package Modelos;
+import Enum.Actividades;
 
 public class Actividad {
-    private String nombre;
     private int capacidad;
     private double precio;
+    private Actividades actividad;
+
 }
