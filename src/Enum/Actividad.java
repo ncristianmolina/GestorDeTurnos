@@ -1,4 +1,17 @@
 package Enum;
 
 public enum Actividad {
+    FUNCIONAL,
+    MUSCULACION,
+    SPINNING,
+    BIKEFORCE,
+    ZUMBA,
+    MASAJE,
+    STRETCHING,
+    GAP,
+    NUTRICION,
+    YOGA,
+    PILATES,
+    RITMOSLATINOS,
+    ENTRENAMIENTOADULTOSMAYORES;
 }
