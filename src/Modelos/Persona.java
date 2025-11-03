@@ -10,6 +10,7 @@ public abstract class Persona {
     private String email;
     private String password;
     private String usuario;
+    private TipoUsuario tipo;
 
     public Persona(String dni, String nombre, String apellido, String email, String password, String usuario) {
         this.dni = dni;

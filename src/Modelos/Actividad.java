@@ -1,12 +1,12 @@
 package Modelos;
-import Enum.Actividades;
+import Enum.TipoActividad;
 
 public class Actividad {
     private int capacidadMaxima;
     private double precio;
-    private Actividades actividad;
+    private TipoActividad actividad;
 
-    public Actividad(int capacidad, double precio, Actividades actividad) {
+    public Actividad(int capacidad, double precio, TipoActividad actividad) {
         this.capacidadMaxima = capacidadMaxima;
         this.precio = precio;
         this.actividad = actividad;
@@ -28,11 +28,11 @@ public class Actividad {
         this.precio = precio;
     }
 
-    public Actividades getActividad() {
+    public TipoActividad getActividad() {
         return actividad;
     }
 
-    public void setActividad(Actividades actividad) {
+    public void setActividad(TipoActividad actividad) {
         this.actividad = actividad;
     }
 }
