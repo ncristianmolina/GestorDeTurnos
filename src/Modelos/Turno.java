@@ -1,23 +1,25 @@
 package Modelos;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 import Interfaces.Reservable;
 import Enum.EstadoTurno;
 
 public class Turno implements Reservable {
     private int idTurno;
-    private LocalDate fechaHora;
+    private LocalDateTime fechaHora;
     private EstadoTurno estado;
     private Cliente cliente;
     private Actividad Actividad;
 
-    public Turno(int idTurno, LocalDate fechaHora, EstadoTurno estado, Cliente cliente, Actividad actividad) {
+    public Turno(int idTurno, LocalDateTime fechaHora, EstadoTurno estado, Cliente cliente, Actividad actividad) {
         this.idTurno = idTurno;
         this.fechaHora = fechaHora;
         this.estado = estado;
         this.cliente = cliente;
         Actividad = actividad;
     }
+
 
     public int getIdTurno() { return idTurno; }
     public void setIdTurno(int idTurno) { this.idTurno = idTurno; }
