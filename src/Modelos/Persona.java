@@ -1,6 +1,7 @@
 package Modelos;
 
 import Util.IdGenerator;
+import Enum.TipoUsuario;
 
 public abstract class Persona {
 
