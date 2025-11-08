@@ -27,11 +27,11 @@ public class Turno implements Reservable {
     public void setIdTurno(int idTurno) {
         this.idTurno = idTurno; }
 
-    public LocalDate getFechaHora() {
+    public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDate fechaHora) {
+    public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
 
