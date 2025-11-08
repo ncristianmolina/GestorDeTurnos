@@ -45,4 +45,6 @@ public class Actividad {
                 ", tipoActividad='" + tipoActividad + '\'' +
                 '}';
     }
+
+
 }
