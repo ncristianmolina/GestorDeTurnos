@@ -3,8 +3,8 @@ package Modelos;
 public class Cliente extends Persona{
     private String telefono;
 
-    public Cliente(String dni, String nombre, String apellido, String email, String telefono) {
-        super(dni, nombre, apellido, email);
+    public Cliente(String dni, String nombre, String apellido, String email, String password, String usuario, String telefono) {
+        super(dni, nombre, apellido, email, password, usuario);
         this.telefono = telefono;
     }
 
