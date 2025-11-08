@@ -1,0 +1,469 @@
+[
+  {
+    "dni": "34782910",
+    "nombre": "Lucía",
+    "apellido": "Martínez",
+    "email": "lmartinez@estudiomartinez.com",
+    "password": "LcM!4829*pw",
+    "usuario": "lucia.martinez",
+    "tipo": "ADMIN",
+    "esActivo": true
+  },
+  {
+    "dni": "36290122",
+    "nombre": "Tomás",
+    "apellido": "Benítez",
+    "email": "tbenitez@corpbenitez.com",
+    "password": "TmbZ_9031@!",
+    "usuario": "tomas.benitez",
+    "tipo": "ADMIN",
+    "esActivo": true
+  },
+  {
+    "dni": "39842755",
+    "nombre": "Milena",
+    "apellido": "Rossi",
+    "email": "mrossi@consultingrossi.com",
+    "password": "MlR#7722pw",
+    "usuario": "milena.rossi",
+    "tipo": "ADMIN",
+    "esActivo": true
+  },
+
+  {
+    "dni": "10293455",
+    "nombre": "Carlos",
+    "apellido": "Sosa",
+    "email": "carlos.sosa@gmail.com",
+    "password": "cso1234",
+    "usuario": "carlos.sosa",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "20384911",
+    "nombre": "María",
+    "apellido": "Gómez",
+    "email": "maria.gomez@outlook.com",
+    "password": "mgz2024",
+    "usuario": "maria.gomez",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+  {
+    "dni": "45203922",
+    "nombre": "Julián",
+    "apellido": "Ferreyra",
+    "email": "julian.ferreyra@hotmail.com",
+    "password": "jfn4567",
+    "usuario": "julian.ferreyra",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "30294811",
+    "nombre": "Sofía",
+    "apellido": "López",
+    "email": "sofia.lopez@gmail.com",
+    "password": "slp9981",
+    "usuario": "sofia.lopez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "21495820",
+    "nombre": "Ramiro",
+    "apellido": "Roldán",
+    "email": "ramiro.roldan@hotmail.com",
+    "password": "rrl2200",
+    "usuario": "ramiro.roldan",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+  {
+    "dni": "43219954",
+    "nombre": "Valeria",
+    "apellido": "Crespo",
+    "email": "valeria.crespo@outlook.com",
+    "password": "vcs4820",
+    "usuario": "valeria.crespo",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "19482033",
+    "nombre": "Federico",
+    "apellido": "Ruiz",
+    "email": "federico.ruiz@gmail.com",
+    "password": "frz5540",
+    "usuario": "federico.ruiz",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "43992210",
+    "nombre": "Daniela",
+    "apellido": "Quinteros",
+    "email": "daniela.quinteros@hotmail.com",
+    "password": "dqt3341",
+    "usuario": "daniela.quinteros",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+  {
+    "dni": "20849211",
+    "nombre": "Hernán",
+    "apellido": "Pérez",
+    "email": "hernan.perez@outlook.com",
+    "password": "hpz2110",
+    "usuario": "hernan.perez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "41029833",
+    "nombre": "Evelyn",
+    "apellido": "Arce",
+    "email": "evelyn.arce@gmail.com",
+    "password": "ear1102",
+    "usuario": "evelyn.arce",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "18220340",
+    "nombre": "Lucas",
+    "apellido": "Campos",
+    "email": "lucas.campos@hotmail.com",
+    "password": "lcp4421",
+    "usuario": "lucas.campos",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+  {
+    "dni": "34772218",
+    "nombre": "Ana",
+    "apellido": "Delgado",
+    "email": "ana.delgado@gmail.com",
+    "password": "adg2280",
+    "usuario": "ana.delgado",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "23394855",
+    "nombre": "Martín",
+    "apellido": "Espinosa",
+    "email": "martin.espinosa@outlook.com",
+    "password": "mep9120",
+    "usuario": "martin.espinosa",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "44583922",
+    "nombre": "Julieta",
+    "apellido": "Morales",
+    "email": "julieta.morales@hotmail.com",
+    "password": "jmr4901",
+    "usuario": "julieta.morales",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+  {
+    "dni": "30192844",
+    "nombre": "Nicolás",
+    "apellido": "Pacheco",
+    "email": "nicolas.pacheco@gmail.com",
+    "password": "npc2819",
+    "usuario": "nicolas.pacheco",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+  {
+    "dni": "21940211",
+    "nombre": "Carolina",
+    "apellido": "Vega",
+    "email": "carolina.vega@outlook.com",
+    "password": "cvg1010",
+    "usuario": "carolina.vega",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "18992211",
+    "nombre": "Bruno",
+    "apellido": "Sánchez",
+    "email": "bruno.sanchez@gmail.com",
+    "password": "bsn4021",
+    "usuario": "bruno.sanchez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "44192810",
+    "nombre": "Vanesa",
+    "apellido": "Duarte",
+    "email": "vanesa.duarte@hotmail.com",
+    "password": "vdr2210",
+    "usuario": "vanesa.duarte",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "13294855",
+    "nombre": "Héctor",
+    "apellido": "Navarro",
+    "email": "hector.navarro@gmail.com",
+    "password": "hnv1022",
+    "usuario": "hector.navarro",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "20293811",
+    "nombre": "Gabriela",
+    "apellido": "Ramírez",
+    "email": "gabriela.ramirez@outlook.com",
+    "password": "grm9912",
+    "usuario": "gabriela.ramirez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "41928855",
+    "nombre": "Leandro",
+    "apellido": "Molina",
+    "email": "leandro.molina@gmail.com",
+    "password": "lml7721",
+    "usuario": "leandro.molina",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "10293877",
+    "nombre": "Ariel",
+    "apellido": "Ortiz",
+    "email": "ariel.ortiz@hotmail.com",
+    "password": "aor9281",
+    "usuario": "ariel.ortiz",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "42394811",
+    "nombre": "Rocío",
+    "apellido": "Salas",
+    "email": "rocio.salas@outlook.com",
+    "password": "rsl1210",
+    "usuario": "rocio.salas",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "30942833",
+    "nombre": "Alan",
+    "apellido": "Barrios",
+    "email": "alan.barrios@gmail.com",
+    "password": "abr2201",
+    "usuario": "alan.barrios",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "23948211",
+    "nombre": "Micaela",
+    "apellido": "Juárez",
+    "email": "micaela.juarez@hotmail.com",
+    "password": "mjr7711",
+    "usuario": "micaela.juarez",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "18299122",
+    "nombre": "Ignacio",
+    "apellido": "Cabrera",
+    "email": "ignacio.cabrera@gmail.com",
+    "password": "icb2100",
+    "usuario": "ignacio.cabrera",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "44592810",
+    "nombre": "Florencia",
+    "apellido": "Nuñez",
+    "email": "florencia.nunez@outlook.com",
+    "password": "fnz4321",
+    "usuario": "florencia.nunez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "10394822",
+    "nombre": "Javier",
+    "apellido": "Peralta",
+    "email": "javier.peralta@hotmail.com",
+    "password": "jpl1200",
+    "usuario": "javier.peralta",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "39288411",
+    "nombre": "Noelia",
+    "apellido": "Castro",
+    "email": "noelia.castro@gmail.com",
+    "password": "ncs9012",
+    "usuario": "noelia.castro",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "21239400",
+    "nombre": "David",
+    "apellido": "Giménez",
+    "email": "david.gimenez@outlook.com",
+    "password": "dgm4420",
+    "usuario": "david.gimenez",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "40192822",
+    "nombre": "Sandra",
+    "apellido": "Montes",
+    "email": "sandra.montes@hotmail.com",
+    "password": "sms2031",
+    "usuario": "sandra.montes",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "19822039",
+    "nombre": "Esteban",
+    "apellido": "Barreda",
+    "email": "esteban.barreda@gmail.com",
+    "password": "ebr9900",
+    "usuario": "esteban.barreda",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "44210922",
+    "nombre": "Pamela",
+    "apellido": "Lagos",
+    "email": "pamela.lagos@hotmail.com",
+    "password": "plg1188",
+    "usuario": "pamela.lagos",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "19293844",
+    "nombre": "Rodrigo",
+    "apellido": "Silva",
+    "email": "rodrigo.silva@gmail.com",
+    "password": "rsl5501",
+    "usuario": "rodrigo.silva",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "21738111",
+    "nombre": "Celeste",
+    "apellido": "Guerra",
+    "email": "celeste.guerra@outlook.com",
+    "password": "cgr0011",
+    "usuario": "celeste.guerra",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "45382910",
+    "nombre": "Emanuel",
+    "apellido": "Paz",
+    "email": "emanuel.paz@hotmail.com",
+    "password": "epz3377",
+    "usuario": "emanuel.paz",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "31482920",
+    "nombre": "Ariana",
+    "apellido": "Serrano",
+    "email": "ariana.serrano@gmail.com",
+    "password": "asn2290",
+    "usuario": "ariana.serrano",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "21194855",
+    "nombre": "Alejandro",
+    "apellido": "Paredes",
+    "email": "alejandro.paredes@outlook.com",
+    "password": "apr1020",
+    "usuario": "alejandro.paredes",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "14839210",
+    "nombre": "Paula",
+    "apellido": "Cervantes",
+    "email": "paula.cervantes@hotmail.com",
+    "password": "pcv5581",
+    "usuario": "paula.cervantes",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  },
+
+  {
+    "dni": "42491022",
+    "nombre": "Franco",
+    "apellido": "Ojeda",
+    "email": "franco.ojeda@gmail.com",
+    "password": "fod4421",
+    "usuario": "franco.ojeda",
+    "tipo": "CLIENTE",
+    "esActivo": false
+  },
+
+  {
+    "dni": "20394800",
+    "nombre": "Nadia",
+    "apellido": "Torres",
+    "email": "nadia.torres@outlook.com",
+    "password": "ntr2281",
+    "usuario": "nadia.torres",
+    "tipo": "CLIENTE",
+    "esActivo": true
+  }
+]
