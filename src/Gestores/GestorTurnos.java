@@ -56,5 +56,31 @@ public class GestorTurnos {
     }
 
 
+    // METODO ELIMINAR TURNO
+
+
+
+
+    //METODO LIBERAR TURNO (NO SE ELIMINA )
+
+
+    //METODO MODIFICAR TURNO
+
+
+
+
+
+
+//METODO LISTAR TURNOS DISPONIBLES
+
+
+
+//METODO MOSTRAR TODOS LOS TURNOS CARGADOS
+
+
+
+
+
+
 
 }

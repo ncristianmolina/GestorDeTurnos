@@ -23,4 +23,7 @@ public class Administrador extends Persona{
     que pueda modificar actividades
     que pueda eliminar
      */
+
+
+
 }
