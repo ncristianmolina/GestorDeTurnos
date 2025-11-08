@@ -6,7 +6,7 @@ public class Actividad {
     private String tipoActividad;
 
 
-    public Actividad(int capacidad, double precio, String tipoActividad) {
+    public Actividad(int capacidadMaxima, double precio, String tipoActividad) {
         this.capacidadMaxima = capacidadMaxima;
         this.precio = precio;
         this.tipoActividad = tipoActividad;
