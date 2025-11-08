@@ -12,14 +12,16 @@ public abstract class Persona {
     private String password;
     private String usuario;
     private TipoUsuario tipo;
+    private int estado;
 
-    public Persona(String dni, String nombre, String apellido, String email, String password, String usuario) {
+    public Persona(String dni, String nombre, String apellido, String email, String password, String usuario, int estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.password = password;
         this.usuario = usuario;
+        this.estado = estado;
     }
 
     public String getDni() {
@@ -68,5 +70,21 @@ public abstract class Persona {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public TipoUsuario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 }
