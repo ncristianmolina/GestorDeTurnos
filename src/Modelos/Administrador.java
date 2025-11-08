@@ -9,12 +9,15 @@ public class Administrador extends Persona{
     }
 
     public int getNivelAcceso() {
+
         return nivelAcceso;
     }
 
     public void setNivelAcceso(int nivelAcceso) {
+
         this.nivelAcceso = nivelAcceso;
     }
+
 
     /*que el administrador pueda agregar una activdad nueva
     que pueda modificar actividades

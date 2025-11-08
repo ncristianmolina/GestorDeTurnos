@@ -11,10 +11,12 @@ public class GestorGenerico<T> {
     }
 
     public void agregar(T item) {
+
         lista.add(item);
     }
 
     public void eliminar(T item) {
+
         lista.remove(item);
     }
 
@@ -26,10 +28,12 @@ public class GestorGenerico<T> {
     }
 
     public List<T> listar() {
+
         return new ArrayList<>(lista);
     }
 
     public int cantidad() {
+
         return lista.size();
     }
 }

@@ -16,7 +16,7 @@ public class Actividad {
         return capacidadMaxima;
     }
 
-    public void setCapacidad(int capacidad) {
+    public void setCapacidadMaxima(int capacidadMaxima) {
         this.capacidadMaxima = capacidadMaxima;
     }
 
@@ -28,9 +28,6 @@ public class Actividad {
         this.precio = precio;
     }
 
-    public void setCapacidadMaxima(int capacidadMaxima) {
-        this.capacidadMaxima = capacidadMaxima;
-    }
 
     public String getTipoActividad() {
         return tipoActividad;
@@ -38,5 +35,14 @@ public class Actividad {
 
     public void setTipoActividad(String tipoActividad) {
         this.tipoActividad = tipoActividad;
+    }
+
+    @Override
+    public String toString() {
+        return "Actividad{" +
+                "capacidadMaxima=" + capacidadMaxima +
+                ", precio=" + precio +
+                ", tipoActividad='" + tipoActividad + '\'' +
+                '}';
     }
 }
