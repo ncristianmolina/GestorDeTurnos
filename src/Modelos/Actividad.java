@@ -4,12 +4,13 @@ public class Actividad {
     private int capacidadMaxima;
     private double precio;
     private String tipoActividad;
+    private int idActividad;
 
-
-    public Actividad(int capacidadMaxima, double precio, String tipoActividad) {
+    public Actividad(int capacidadMaxima, double precio, String tipoActividad, int idActividad) {
         this.capacidadMaxima = capacidadMaxima;
         this.precio = precio;
         this.tipoActividad = tipoActividad;
+        this.idActividad = idActividad;
     }
 
     public int getCapacidadMaxima() {
@@ -37,14 +38,21 @@ public class Actividad {
         this.tipoActividad = tipoActividad;
     }
 
+    public int getIdActividad() {
+        return idActividad;
+    }
+
+    public void setIdActividad(int idActividad) {
+        this.idActividad = idActividad;
+    }
+
     @Override
     public String toString() {
         return "Actividad{" +
                 "capacidadMaxima=" + capacidadMaxima +
                 ", precio=" + precio +
                 ", tipoActividad='" + tipoActividad + '\'' +
+                ", idActividad=" + idActividad +
                 '}';
     }
-
-
 }

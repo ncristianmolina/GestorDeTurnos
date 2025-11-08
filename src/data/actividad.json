@@ -1,0 +1,79 @@
+{
+  "actividades": [
+    {
+      "tipoActividad": "FUNCIONAL",
+      "capacidadMaxima": 25,
+      "precio": 35000
+    },
+    {
+      "tipoActividad": "FUNCIONAL 5X SEMANA",
+      "capacidadMaxima": 25,
+      "precio": 45000
+    },
+    {
+      "tipoActividad": "MUSCULACION",
+      "capacidadMaxima": 30,
+      "precio": 35000
+    },
+    {
+      "tipoActividad": "MUSCULACION 5X SEMANA",
+      "capacidadMaxima": 30,
+      "precio": 45000
+    },
+    {
+      "tipoActividad": "SPINNING",
+      "capacidadMaxima": 15,
+      "precio": 35000
+    },
+    {
+      "tipoActividad": "BIKEFORCE",
+      "capacidadMaxima": 15,
+      "precio": 35000
+    },
+    {
+      "tipoActividad": "ZUMBA",
+      "capacidadMaxima": 30,
+      "precio": 20000
+    },
+    {
+      "tipoActividad": "MASAJE",
+      "capacidadMaxima": 1,
+      "precio": 25000
+    },
+    {
+      "tipoActividad": "STRETCHING",
+      "capacidadMaxima": 10,
+      "precio": 25000
+    },
+    {
+      "tipoActividad": "GAP",
+      "capacidadMaxima": 10,
+      "precio": 40000
+    },
+    {
+      "tipoActividad": "NUTRICION",
+      "capacidadMaxima": 1,
+      "precio": 20000
+    },
+    {
+      "tipoActividad": "YOGA",
+      "capacidadMaxima": 20,
+      "precio": 40000
+    },
+    {
+      "tipoActividad": "PILATES",
+      "capacidadMaxima": 10,
+      "precio": 45000
+    },
+    {
+      "tipoActividad": "RITMOSLATINOS",
+      "capacidadMaxima": 20,
+      "precio": 20000
+    },
+    {
+      "tipoActividad": "ENTRENAMIENTOADULTOSMAYORES",
+      "capacidadMaxima": 10,
+      "precio": 27500
+    }
+  ]
+}
