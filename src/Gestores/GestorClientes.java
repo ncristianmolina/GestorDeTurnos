@@ -17,7 +17,7 @@ public class GestorClientes extends GestorGenerico<Persona> {
             }
         }
         lista.add(persona);
-        System.out.println("✅ Persona agregada: " + persona.getNombre() + " " + persona.getApellido());
+        System.out.println("Persona agregada: " + persona.getNombre() + " " + persona.getApellido());
     }
 
     // Buscar persona por DNI
@@ -41,7 +41,7 @@ public class GestorClientes extends GestorGenerico<Persona> {
         }
         if (personaAEliminar != null) {
             lista.remove(personaAEliminar);
-            System.out.println("❌ Persona eliminada: " + personaAEliminar.getNombre());
+            System.out.println("Persona eliminada: " + personaAEliminar.getNombre());
         } else {
             throw new ClienteNoEncontradoException("No existe un cliente con DNI: " + dni);
         }

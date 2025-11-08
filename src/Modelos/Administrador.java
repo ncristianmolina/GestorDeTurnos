@@ -3,8 +3,8 @@ package Modelos;
 public class Administrador extends Persona{
     private int nivelAcceso;
 
-    public Administrador(String dni, String nombre, String apellido, String email, String password, String usuario, int nivelAcceso) {
-        super(dni, nombre, apellido, email, password, usuario);
+    public Administrador(String dni, String nombre, String apellido, String email, String password, String usuario, boolean esActivo, int nivelAcceso) {
+        super(dni, nombre, apellido, email, password, usuario, esActivo);
         this.nivelAcceso = nivelAcceso;
     }
 
