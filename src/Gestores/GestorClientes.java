@@ -1,28 +1,52 @@
-package Gestores;
+package Modelos;
 
-import Exceptions.ClienteNoEncontradoException;
-import Modelos.Cliente;
+import Exceptions.*;
+import Gestores.GestorGenerico;
+
 import java.util.ArrayList;
 
-public class GestorClientes {
-    private ArrayList<Cliente> clientes;
 
-    public GestorClientes(ArrayList<Cliente> clientes) {
-        this.clientes = clientes;
-    }
+public class GestorClientes extends GestorGenerico<Persona> {
+    private ArrayList<Cliente> lista;
 
-    public Cliente buscarClientePorDNI(String DNI) throws ClienteNoEncontradoException {
-        for (Cliente c : clientes) {
-            if (c.getDni().equals(DNI)) {
-                return c;
+    // Agregar persona validando que el DNI no exista
+    public void agregarPersona(Cliente persona) throws DNIClienteDuplicadoException {
+        for (Persona p : lista) {
+            if (p.getDni().equalsIgnoreCase(persona.getDni())) {
+                throw new DNIClienteDuplicadoException("Ya existe una persona con el DNI: " + persona.getDni());
             }
         }
-        throw new ClienteNoEncontradoException("No se ha encontrado el cliente con el DNI: " + DNI);
+        lista.add(persona);
+        System.out.println("✅ Persona agregada: " + persona.getNombre() + " " + persona.getApellido());
     }
 
+    // Buscar persona por DNI
+    public Cliente buscarPorDni(String dni) throws ClienteNoEncontradoException {
+        for (Cliente p : lista) {
+            if (p.getDni().equalsIgnoreCase(dni)) {
+                return p;
+            }
+        }
+        throw new ClienteNoEncontradoException("No se encontró un cliente con DNI: " + dni);
+    }
 
+    // Eliminar persona por DNI
+    public void eliminarPorDni(String dni) throws ClienteNoEncontradoException {
+        Persona personaAEliminar = null;
+        for (Persona p : lista) {
+            if (p.getDni().equalsIgnoreCase(dni)) {
+                personaAEliminar = p;
+                break;
+            }
+        }
+        if (personaAEliminar != null) {
+            lista.remove(personaAEliminar);
+            System.out.println("❌ Persona eliminada: " + personaAEliminar.getNombre());
+        } else {
+            throw new ClienteNoEncontradoException("No existe un cliente con DNI: " + dni);
+        }
+    }
 }
-
 
 
 

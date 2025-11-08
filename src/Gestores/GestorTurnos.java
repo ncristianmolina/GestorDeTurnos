@@ -4,6 +4,7 @@ import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
 import Modelos.Actividad;
 import Modelos.Cliente;
+import Modelos.GestorClientes;
 import Modelos.Turno;
 import Enum.EstadoTurno;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class GestorTurnos {
 
 
         int idTurno = turnos.size() + 1;
-        Cliente clienteObj =  gestor.buscarClientePorDNI(cliente);
+        Cliente clienteObj =  gestor.buscarPorDni(cliente);
         turnos.add(new Turno(idTurno, fechaHora ,EstadoTurno.RESERVADO, clienteObj, actividad));
 
         System.out.println("Turno reservado con éxito para " + cliente + " en " + actividad);
