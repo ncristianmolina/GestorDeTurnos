@@ -9,15 +9,15 @@ public class Turno implements Reservable {
     private int idTurno;
     private LocalDateTime fechaHora;
     private EstadoTurno estado;
-    private Cliente cliente;
-    private Actividad Actividad;
+    private String dniCliente;
+    private int idActividad;
 
-    public Turno(int idTurno, LocalDateTime fechaHora, EstadoTurno estado, Cliente cliente, Actividad actividad) {
+    public Turno(int idTurno, LocalDateTime fechaHora, EstadoTurno estado, String dniCliente, int idActividad) {
         this.idTurno = idTurno;
         this.fechaHora = fechaHora;
         this.estado = estado;
-        this.cliente = cliente;
-        Actividad = actividad;
+        this.dniCliente = dniCliente;
+        this.idActividad = idActividad;
     }
 
 
@@ -38,15 +38,15 @@ public class Turno implements Reservable {
     public EstadoTurno getEstado() { return estado; }
     public void setEstado(EstadoTurno estado) { this.estado = estado; }
 
-    public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    public String getDniCliente() { return dniCliente; }
+    public void setDniCliente(Cliente cliente) { this.dniCliente = dniCliente; }
 
-    public Actividad getActividad() {
-        return Actividad;
+    public int getIdActividad() {
+        return idActividad;
     }
 
-    public void setActividad(Actividad actividad) {
-        Actividad = actividad;
+    public void setIdActividad(int idActividad) {
+        this.idActividad = idActividad;
     }
 
     @Override

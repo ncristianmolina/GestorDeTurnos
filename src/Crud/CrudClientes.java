@@ -1,7 +1,7 @@
 package Crud;
 
 import Modelos.Cliente;
-import Modelos.GestorClientes;
+import Gestores.GestorClientes;
 import Enum.TipoUsuario;
 import Exceptions.*;
 import ManejoJSON.gestionJSONPersona;

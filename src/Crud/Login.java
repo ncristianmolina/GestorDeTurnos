@@ -1,7 +1,7 @@
 package Crud;
 
 import Gestores.GestorTurnos;
-import Modelos.GestorClientes;
+import Gestores.GestorClientes;
 import java.util.Scanner;
 
 /**

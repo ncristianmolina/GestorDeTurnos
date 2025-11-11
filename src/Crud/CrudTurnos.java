@@ -3,7 +3,7 @@ package Crud;
 import Modelos.Actividad;
 import Modelos.Cliente;
 import Modelos.Turno;
-import Modelos.GestorClientes;
+import Gestores.GestorClientes;
 import Gestores.GestorTurnos;
 import Exceptions.*;
 import Enum.EstadoTurno;
