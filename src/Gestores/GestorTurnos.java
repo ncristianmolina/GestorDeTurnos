@@ -4,7 +4,6 @@ import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
 import Modelos.Actividad;
 import Modelos.Cliente;
-import Modelos.GestorClientes;
 import Modelos.Turno;
 import Enum.EstadoTurno;
 import java.time.LocalDateTime;

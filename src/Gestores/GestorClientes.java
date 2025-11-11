@@ -1,7 +1,9 @@
-package Modelos;
+package Gestores;
 
 import Exceptions.*;
 import Gestores.GestorGenerico;
+import Modelos.Cliente;
+import Modelos.Persona;
 
 import java.util.ArrayList;
 
