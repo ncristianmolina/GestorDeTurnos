@@ -5,7 +5,11 @@ import Modelos.Cliente;
 import Modelos.Turno;
 import Modelos.Administrador;
 
+import java.util.Scanner;
+
 public class SistemaDeTurnos {
+
+    private final Scanner scanner = new Scanner(System.in);
 
     private GestorGenerico<Turno> gestorTurnos;
     private GestorGenerico<Cliente> gestorClientes;
@@ -27,5 +31,8 @@ public class SistemaDeTurnos {
 
     public GestorGenerico<Administrador> getGestorAdmins() {
         return gestorAdmins;
+    }
+
+    public void iniciar() {
     }
 }
