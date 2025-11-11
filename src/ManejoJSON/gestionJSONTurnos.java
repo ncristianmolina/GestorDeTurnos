@@ -6,7 +6,7 @@ import org.json.*;
         import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class gestionJSONTurno {
+public class gestionJSONTurnos {
 
     private static final String ARCHIVO = "turnos.json";
 
@@ -67,7 +67,7 @@ public class gestionJSONTurno {
         }
 
 
-        JSONUtiles.grabar(ARCHIVO, array);
+        JSONUtiles.grabar(array);
 
         System.out.println("✔ Archivo " + ARCHIVO + " actualizado correctamente.");
     }
