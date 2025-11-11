@@ -8,6 +8,9 @@ public class Administrador extends Persona{
         this.nivelAcceso = nivelAcceso;
     }
 
+    public Administrador(String dni, String nombre, String apellido, String email, String password, String usuario, String tipo, boolean esActivo) {
+    }
+
     public int getNivelAcceso() {
 
         return nivelAcceso;

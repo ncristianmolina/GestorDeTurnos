@@ -14,7 +14,7 @@ public class JSONUtiles {
 
     public static void grabar(JSONArray array) {
         try {
-            FileWriter file = new FileWriter("");
+            FileWriter file = new FileWriter("persona.json");
             file.write(array.toString());
             file.flush();
             file.close();

@@ -14,6 +14,9 @@ public abstract class Persona {
     private TipoUsuario tipo;
     private boolean esActivo;
 
+    public Persona() {
+    }
+
     public Persona(String dni, String nombre, String apellido, String email, String password, String usuario, boolean esActivo) {
         this.dni = dni;
         this.nombre = nombre;
@@ -80,7 +83,7 @@ public abstract class Persona {
         this.tipo = tipo;
     }
 
-    public boolean getEstado() {
+    public boolean getEsActivo() {
         return esActivo;
     }
 
