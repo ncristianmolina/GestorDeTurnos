@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorActividades {
-    List<Actividad> actividades  = new ArrayList;
+    List<Actividad> actividades  = new ArrayList();
 
     public GestorActividades(List<Actividad> actividades) {
         this.actividades = actividades;
