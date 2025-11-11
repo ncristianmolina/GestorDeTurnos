@@ -11,9 +11,7 @@ import java.io.IOException;
 
 public class JSONUtiles {
 
-    // ----------------------------
-    // GRABAR (NO SE TOCA)
-    // ----------------------------
+
     public static void grabar(JSONArray array) {
         try {
             FileWriter file = new FileWriter("persona.json");
@@ -25,9 +23,7 @@ public class JSONUtiles {
         }
     }
 
-    // ----------------------------
-    // LEER (NO SE TOCA)
-    // ----------------------------
+
     public static JSONTokener leer(String archivo) {
         JSONTokener tokener = null;
 
@@ -39,9 +35,7 @@ public class JSONUtiles {
         return tokener;
     }
 
-    // ----------------------------
-    // ADAPTACIÓN: métodos ESPECÍFICOS
-    // ----------------------------
+
 
     public static JSONArray leerActividades() {
         try {
