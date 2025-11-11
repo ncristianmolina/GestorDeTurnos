@@ -20,6 +20,24 @@ public class GestorActividades {
         this.actividades = actividades;
     }
 
+    public Actividad buscarPorNombre(String nombreActividad) {
+        for (Actividad a : actividades) {
+            if (a.getTipoActividad().equalsIgnoreCase(nombreActividad)) {
+                return a;
+            }
+        }
+        return null; // No se encontró
+    }
+
+    public Actividad buscarPorId(int idActividad) {
+        for (Actividad a : actividades) {
+            if (a.getIdActividad() == idActividad) {
+                return a;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "GestorActividades{" +

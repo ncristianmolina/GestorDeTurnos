@@ -1,5 +1,4 @@
 package Modelos;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import Interfaces.Reservable;
@@ -12,6 +11,8 @@ public class Turno implements Reservable {
     private String dniCliente;
     private int idActividad;
 
+    public Turno(int idTurno, LocalDateTime fechaHora, String estado, String dniCliente, int idActividad) {
+    }
 
     public Turno(int idTurno, LocalDateTime fechaHora, EstadoTurno estado, String dniCliente, int idActividad) {
         this.idTurno = idTurno;
