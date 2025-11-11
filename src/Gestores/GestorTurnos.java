@@ -8,6 +8,7 @@ import Modelos.Turno;
 import Enum.EstadoTurno;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GestorTurnos {
     public ArrayList<Turno> turnos;
@@ -64,29 +65,53 @@ public class GestorTurnos {
     }
 
 
-    // METODO ELIMINAR TURNO
+    /*
+     METODO ELIMINAR TURNO
+    METODO LIBERAR TURNO (NO SE ELIMINA )
+    METODO MODIFICAR TURNO
+    METODO LISTAR TURNOS DISPONIBLES
+    METODO MOSTRAR TODOS LOS TURNOS CARGADOS
 
+    */
 
+/*Método actividades con más inscriptos*/
 
+    public static List<Actividad> actividadesConMasInscriptos(List<Actividad> actividades, List<Turno> turnos) {
 
-    //METODO LIBERAR TURNO (NO SE ELIMINA )
+        int maxInscriptos = 0;
 
+        for (Actividad a : actividades) {
+            int contador = 0;
 
-    //METODO MODIFICAR TURNO
+            for (Turno t : turnos) {
+                if (t.getIdActividad() == a.getIdActividad()) {
+                    contador++;
+                }
+            }
 
+            if (contador > maxInscriptos) {
+                maxInscriptos = contador;
+            }
+        }
 
+        List<Actividad> resultado = new ArrayList<>();
 
+        for (Actividad a : actividades) {
+            int contador = 0;
 
+            for (Turno t : turnos) {
+                if (t.getIdActividad() == a.getIdActividad()) {
+                    contador++;
+                }
+            }
 
+            if (contador == maxInscriptos) {
+                resultado.add(a);
+            }
+        }
 
-//METODO LISTAR TURNOS DISPONIBLES
-
-
-
-//METODO MOSTRAR TODOS LOS TURNOS CARGADOS
-
-
-
+        return resultado;
+    }
 
 
 
