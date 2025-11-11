@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Controla el flujo principal del sistema de turnos.
  * Desde aquí se accede a los distintos CRUDs (Clientes, Actividades y Turnos).
  *
- * @author Cristian
+
  */
 public class Login {
 
