@@ -24,7 +24,7 @@ public class GestorTurnos {
         boolean clienteYaReservo = false;
 
         for (Turno t : turnos) {
-            if (t.getActividad() == actividad && t.getFechaHora().equals(fechaHora)) {
+            if (t.getIdActividad() == actividad && t.getFechaHora().equals(fechaHora)) {
                 cantidadActual++;
             }
         }
