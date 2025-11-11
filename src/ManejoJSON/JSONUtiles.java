@@ -24,7 +24,7 @@ public class JSONUtiles {
     }
 
     // ----------------------------
-    // MÉTODOS ESPECÍFICOS
+    // MÉTODOS ESPECÍFICOS PARA CADA JSON
     // ----------------------------
 
     public static JSONArray leerActividades() {
