@@ -2,6 +2,7 @@ package ManejoJSON;
 
 import org.json.JSONArray;
 import org.json.JSONTokener;
+import org.json.JSONException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,10 +12,25 @@ import java.io.IOException;
 public class JSONUtiles {
 
     // ----------------------------
-    // MÉTODO GENÉRICO PARA LEER
+    // GRABAR (NO SE TOCA)
     // ----------------------------
-    private static JSONTokener leerArchivo(String archivo) {
+    public static void grabar(JSONArray array) {
+        try {
+            FileWriter file = new FileWriter("persona.json");
+            file.write(array.toString());
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ----------------------------
+    // LEER (NO SE TOCA)
+    // ----------------------------
+    public static JSONTokener leer(String archivo) {
         JSONTokener tokener = null;
+
         try {
             tokener = new JSONTokener(new FileReader(archivo));
         } catch (FileNotFoundException e) {
@@ -24,29 +40,30 @@ public class JSONUtiles {
     }
 
     // ----------------------------
-    // MÉTODOS ESPECÍFICOS PARA CADA JSON
+    // ADAPTACIÓN: métodos ESPECÍFICOS
     // ----------------------------
 
     public static JSONArray leerActividades() {
-        return new JSONArray(leerArchivo("actividades.json"));
+        try {
+            return new JSONArray(leer("actividades.json"));
+        } catch (JSONException e) {
+            return new JSONArray();
+        }
     }
 
     public static JSONArray leerClientes() {
-        return new JSONArray(leerArchivo("clientes.json"));
+        try {
+            return new JSONArray(leer("clientes.json"));
+        } catch (JSONException e) {
+            return new JSONArray();
+        }
     }
 
     public static JSONArray leerTurnos() {
-        return new JSONArray(leerArchivo("turnos.json"));
-    }
-
-    // ----------------------------
-    // MÉTODO PARA GRABAR
-    // ----------------------------
-    public static void grabar(String archivo, JSONArray array) {
-        try (FileWriter file = new FileWriter(archivo)) {
-            file.write(array.toString(2));
-        } catch (IOException e) {
-            e.printStackTrace();
+        try {
+            return new JSONArray(leer("turnos.json"));
+        } catch (JSONException e) {
+            return new JSONArray();
         }
     }
 }
