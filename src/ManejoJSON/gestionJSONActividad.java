@@ -53,6 +53,27 @@ public class gestionJSONActividad {
             throw new RuntimeException(e);
         }
     }
+
+    public static void grabarActividades(List<Actividad> actividades) {
+        JSONArray jActividades = new JSONArray();
+
+        for (Actividad a : actividades) {
+            JSONObject jAct = new JSONObject();
+            try {
+                jAct.accumulate("idActividad", a.getIdActividad());
+                jAct.accumulate("tipoActividad", a.getTipoActividad());
+                jAct.accumulate("capacidadMaxima", a.getCapacidadMaxima());
+                jAct.accumulate("precio", a.getPrecio());
+                jActividades.put(jAct);
+            } catch (JSONException e) {
+                throw new RuntimeException("Error al convertir actividad a JSON: " + e.getMessage());
+            }
+        }
+
+        JSONUtiles.grabarActividades(jActividades);
+
+    }
+
 }
 
 
