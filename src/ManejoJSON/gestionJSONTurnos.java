@@ -12,7 +12,6 @@ public class gestionJSONTurnos {
 
     private static final String ARCHIVO = "turnos.json";
 
-    // 🔹 Mapea un objeto JSON a un Turno
     public static Turno mapeoTurno(JSONObject jTurno) {
         Turno turno = new Turno();
 
@@ -30,7 +29,6 @@ public class gestionJSONTurnos {
         return turno;
     }
 
-    // 🔹 Mapea un array JSON a una lista de Turnos
     public static List<Turno> mapeoTurnos(JSONArray jTurnos) {
         List<Turno> turnos = new ArrayList<>();
 
@@ -47,7 +45,6 @@ public class gestionJSONTurnos {
         return turnos;
     }
 
-    // 🔹 Lee todos los turnos del archivo
     public static List<Turno> leerTurnos() {
         try {
             JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
@@ -57,4 +54,25 @@ public class gestionJSONTurnos {
             throw new RuntimeException("Error al leer turnos: " + e.getMessage());
         }
     }
+
+    public static void grabarTurnos(List<Turno> turnos) {
+        JSONArray jTurnos = new JSONArray();
+
+        for (Turno t : turnos) {
+            JSONObject jT = new JSONObject();
+            try {
+                jT.accumulate("idTurno", t.getIdTurno());
+                jT.accumulate("fechaHora", t.getFechaHora().toString()); // formato ISO
+                jT.accumulate("estado", t.getEstado().name()); // enum → String
+                jT.accumulate("dniCliente", t.getDniCliente());
+                jT.accumulate("idActividad", t.getIdActividad());
+                jTurnos.put(jT);
+            } catch (JSONException e) {
+                throw new RuntimeException("Error al convertir turno a JSON: " + e.getMessage());
+            }
+        }
+
+        JSONUtiles.grabarTurnos(jTurnos);
+    }
+
 }
