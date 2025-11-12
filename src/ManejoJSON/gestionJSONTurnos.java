@@ -10,21 +10,19 @@ public class gestionJSONTurnos {
 
     private static final String ARCHIVO = "turnos.json";
 
-    /**
-     * Carga todos los turnos desde el archivo turnos.json
-     */
     public static ArrayList<Turno> leerTurnos() {
         ArrayList<Turno> lista = new ArrayList<>();
 
         try {
-            // Se obtiene el JSONArray directamente desde JSONUtiles
+
+
             JSONArray array = JSONUtiles.leerTurnos();
             if (array == null) {
-                System.err.println("⚠ No se pudo abrir el archivo JSON: " + ARCHIVO);
+                System.err.println("No se pudo abrir el archivo JSON: " + ARCHIVO);
                 return lista;
             }
 
-            // Recorremos el arreglo "turnos"
+
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
 
@@ -41,18 +39,16 @@ public class gestionJSONTurnos {
                 lista.add(t);
             }
 
-            System.out.println("✔ Se cargaron " + lista.size() + " turnos desde " + ARCHIVO);
+            System.out.println("Se cargaron " + lista.size() + " turnos desde " + ARCHIVO);
 
         } catch (Exception e) {
-            System.err.println("⚠ Error al leer " + ARCHIVO + ": " + e.getMessage());
+            System.err.println("Error al leer " + ARCHIVO + ": " + e.getMessage());
         }
 
         return lista;
     }
 
-    /**
-     * Guarda una lista de turnos en turnos.json
-     */
+
     public static void guardarTurnos(ArrayList<Turno> turnos) throws JSONException {
         JSONArray array = new JSONArray();
 
@@ -66,10 +62,9 @@ public class gestionJSONTurnos {
             array.put(obj);
         }
 
+        JSONUtiles.grabarTurnos(array);
 
-        JSONUtiles.grabar(array);
-
-        System.out.println("✔ Archivo " + ARCHIVO + " actualizado correctamente.");
+        System.out.println("Archivo " + ARCHIVO + " actualizado correctamente.");
     }
 
 
