@@ -36,7 +36,7 @@ public class CrudTurnos extends GestorGenerico<Turno> {
             }
         }
         if (cliente == null) {
-            System.out.println("⚠ Cliente no encontrado o inactivo.");
+            System.out.println("Cliente no encontrado o inactivo.");
             return;
         }
 
@@ -79,7 +79,7 @@ public class CrudTurnos extends GestorGenerico<Turno> {
             }
         }
 
-        System.out.println("⚠ No se encontró un turno con ese ID.");
+        System.out.println("No se encontró un turno con ese ID.");
     }
 
     public void listarTurnos() {

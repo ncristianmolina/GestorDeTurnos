@@ -24,7 +24,7 @@ public class GestorTurnos {
 
         Actividad actividad = gestorActividades.buscarPorNombre(nombreActividad);
         if (actividad == null) {
-            throw new IllegalArgumentException("❌ No se encontró la actividad con nombre: " + nombreActividad);
+            throw new IllegalArgumentException("No se encontró la actividad con nombre: " + nombreActividad);
         }
 
         int cantidadActual = 0;

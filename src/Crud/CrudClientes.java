@@ -21,7 +21,7 @@ public class CrudClientes extends GestorGenerico<Cliente> {
 
         for (Cliente c : lista) {
             if (c.getDni().equalsIgnoreCase(dni)) {
-                System.out.println("⚠ Ya existe un cliente con ese DNI.");
+                System.out.println("Ya existe un cliente con ese DNI.");
                 return;
             }
         }
@@ -41,7 +41,7 @@ public class CrudClientes extends GestorGenerico<Cliente> {
 
         Cliente nuevo = new Cliente(dni, nombre, apellido, email, password, usuario, true, telefono);
         nuevo.setTipo(TipoUsuario.CLIENTE);
-        agregar(nuevo);
+        agregarPersona(nuevo);
 
         System.out.println("✔ Cliente agregado correctamente.");
     }
