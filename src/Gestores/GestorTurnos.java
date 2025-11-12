@@ -4,21 +4,26 @@ import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
 import Modelos.Actividad;
 import Modelos.Cliente;
+import Modelos.Persona;
 import Modelos.Turno;
 import Enum.EstadoTurno;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestorTurnos {
-    public ArrayList<Turno> turnos;
+public class GestorTurnos extends GestorGenerico<Turno> {
+
     public GestorClientes gestor;
     public GestorActividades gestorActividades;
 
-    public GestorTurnos() {
-        this.turnos = new ArrayList<>();
+    public GestorTurnos(GestorClientes gestorClientes, GestorActividades gestorActividades) {
+        super();
+        this.gestor = gestorClientes;
+        this.gestorActividades = gestorActividades;
     }
 
+
+    // Método reservar turno
     public void reservarTurno(String nombreActividad, LocalDateTime fechaHora, String dniCliente)
             throws TurnoOcupadoException, NoHayTurnosDisponiblesException {
 
@@ -30,10 +35,15 @@ public class GestorTurnos {
         int cantidadActual = 0;
         boolean clienteYaReservo = false;
 
-        for (Turno t : turnos) {
+        for (Turno t : lista) {
             if (t.getIdActividad() == actividad.getIdActividad() &&
-                    t.getFechaHora().equals(fechaHora))  {
+                    t.getFechaHora().equals(fechaHora)) {
                 cantidadActual++;
+            }
+
+            if (t.getDniCliente().equals(dniCliente) &&
+                    t.getFechaHora().equals(fechaHora)) {
+                clienteYaReservo = true;
             }
         }
 
@@ -42,77 +52,54 @@ public class GestorTurnos {
                     "No hay turnos disponibles para " + actividad + " en " + fechaHora);
         }
 
-
-        for (Turno t : turnos) {
-            if (t.getDniCliente().equals(dniCliente) &&
-                    t.getFechaHora().equals(fechaHora)) {
-                clienteYaReservo = true;
-
-            }
-        }
-
         if (clienteYaReservo) {
             throw new TurnoOcupadoException("El cliente ya tiene un turno en ese horario.");
         }
 
-
-        int idTurno = turnos.size() + 1;
+        int idTurno = lista.size() + 1;
         Turno nuevoTurno = new Turno(idTurno, fechaHora, EstadoTurno.RESERVADO, dniCliente, actividad.getIdActividad());
-        turnos.add(nuevoTurno);
+        agregar(nuevoTurno);
 
-        System.out.println("✔ Turno reservado con éxito para " + dniCliente +
+        System.out.println("Turno reservado con éxito para " + dniCliente +
                 " en la actividad: " + nombreActividad + " (" + fechaHora + ")");
     }
 
 
-    /*
 
-    METODO MODIFICAR TURNO- horario y tipo de actividad
-
-    METODO MOSTRAR TODOS LOS TURNOS CARGADOS
-
-    */
-
-/*Método actividades con más inscriptos*/
-
-    public static List<Actividad> actividadesConMasInscriptos(List<Actividad> actividades, List<Turno> turnos) {
-
-        int maxInscriptos = 0;
-
-        for (Actividad a : actividades) {
-            int contador = 0;
-
-            for (Turno t : turnos) {
-                if (t.getIdActividad() == a.getIdActividad()) {
-                    contador++;
-                }
-            }
-
-            if (contador > maxInscriptos) {
-                maxInscriptos = contador;
+    // Metodo modificar turno (tipo de actividad o fecha)
+    public boolean modificarTurno(int idTurno, int nuevoIdActividad, LocalDateTime nuevaFechaHora) {
+        for (Turno t : lista) {
+            if (t.getIdTurno() == idTurno) {
+                t.setIdActividad(nuevoIdActividad);
+                t.setFechaHora(nuevaFechaHora);
+                System.out.println("Turno modificado correctamente.");
+                return true;
             }
         }
-
-        List<Actividad> resultado = new ArrayList<>();
-
-        for (Actividad a : actividades) {
-            int contador = 0;
-
-            for (Turno t : turnos) {
-                if (t.getIdActividad() == a.getIdActividad()) {
-                    contador++;
-                }
-            }
-
-            if (contador == maxInscriptos) {
-                resultado.add(a);
-            }
-        }
-
-        return resultado;
+        System.out.println("No se encontró un turno con ID " + idTurno);
+        return false;
     }
 
-    /*Método turnos por cliente*/
+
+    //Metodo mostrar todos los turnos cargados
+
+    public void mostrarTurnos() {
+        if (lista.isEmpty()) {
+            System.out.println("No hay turnos registrados.");
+        } else {
+            for (Turno t : lista) {
+                System.out.println("ID: " + t.getIdTurno() +
+                        " | Cliente: " + t.getDniCliente() +
+                        " | Actividad: " + t.getIdActividad() +
+                        " | FechaHora: " + t.getFechaHora() +
+                        " | Estado: " + t.getEstado());
+            }
+        }
+    }
+
+
+
+    //Método turnos por cliente
 
     public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
         List<Turno> turnosCliente = new ArrayList<>();
@@ -128,8 +115,8 @@ public class GestorTurnos {
 
 
     //Método para listar las actividades que todavía tienen turnos disponibles.
-    // * Se considera que una actividad está disponible si la cantidad de turnos
-    // * reservados es menor que su capacidad máxima.
+    // Se considera que una actividad está disponible si la cantidad de turnos
+    // reservados es menor que su capacidad máxima.
 
     public static List<Actividad> listarTurnosDisponibles(List<Actividad> actividades, List<Turno> turnos) {
         List<Actividad> disponibles = new ArrayList<>();
@@ -137,14 +124,14 @@ public class GestorTurnos {
         for (Actividad a : actividades) {
             int contador = 0;
 
-            // Contamos los turnos asociados a esta actividad
+
             for (Turno t : turnos) {
                 if (t.getIdActividad() == a.getIdActividad()) {
                     contador++;
                 }
             }
 
-            // Si todavía hay cupo, se agrega a la lista
+
             if (contador < a.getCapacidadMaxima()) {
                 disponibles.add(a);
             }
@@ -152,12 +139,6 @@ public class GestorTurnos {
 
         return disponibles;
     }
-
-
-
-
-
-
 
 
 }
