@@ -88,11 +88,11 @@ public class gestionJSONPersona {
             }
 
 
-            JSONObject raiz = new JSONObject();
-            raiz.put("personas", array);
-            JSONUtiles.grabar(raiz.getJSONArray("personas"));
+            JSONObject persona = new JSONObject();
+            persona.put("personas", array);
+            JSONUtiles.grabarPersonas(persona.getJSONArray("personas"));
         }
 
-        System.out.println("✔ Archivo persona.json actualizado correctamente.");
+        System.out.println("Archivo persona.json actualizado correctamente.");
     }
 }

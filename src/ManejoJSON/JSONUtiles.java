@@ -27,7 +27,7 @@ public class JSONUtiles {
         grabar(array, "actividades.json");
     }
 
-    public static void grabarClientes(JSONArray array) {
+    public static void grabarPersonas(JSONArray array) {
         grabar(array, "clientes.json");
     }
 
