@@ -70,4 +70,28 @@ public class gestionJSONPersona {
             throw new RuntimeException("Error al leer personas: " + e.getMessage());
         }
     }
+
+    public static void grabarPersonas(List<Persona> personas) {
+        JSONArray jPersonas = new JSONArray();
+
+        for (Persona p : personas) {
+            JSONObject jPers = new JSONObject();
+            try {
+                jPers.accumulate("dni", p.getDni());
+                jPers.accumulate("nombre", p.getNombre());
+                jPers.accumulate("apellido", p.getApellido());
+                jPers.accumulate("email", p.getEmail());
+                jPers.accumulate("password", p.getPassword());
+                jPers.accumulate("usuario", p.getUsuario());
+                jPers.accumulate("tipo", p.getTipo());
+                jPers.accumulate("esActivo", p.getEsActivo());
+                jPersonas.put(jPers);
+            } catch (JSONException e) {
+                throw new RuntimeException("Error al convertir persona a JSON: " + e.getMessage());
+            }
+        }
+
+        JSONUtiles.grabarPersonas(jPersonas);
+    }
+
 }
