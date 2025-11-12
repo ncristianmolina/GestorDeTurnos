@@ -5,67 +5,56 @@ import org.json.*;
         import java.io.*;
         import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import Enum.EstadoTurno;
 
 public class gestionJSONTurnos {
 
     private static final String ARCHIVO = "turnos.json";
 
-    public static ArrayList<Turno> leerTurnos() {
-        ArrayList<Turno> lista = new ArrayList<>();
+    // 🔹 Mapea un objeto JSON a un Turno
+    public static Turno mapeoTurno(JSONObject jTurno) {
+        Turno turno = new Turno();
 
         try {
-
-
-            JSONArray array = JSONUtiles.leerTurnos();
-            if (array == null) {
-                System.err.println("No se pudo abrir el archivo JSON: " + ARCHIVO);
-                return lista;
-            }
-
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
-
-                int idTurno = obj.getInt("idTurno");
-                String fechaHoraStr = obj.getString("fechaHora");
-                String estado = obj.getString("estado");
-                String dniCliente = obj.optString("dniCliente", null); // puede ser null
-                int idActividad = obj.getInt("idActividad");
-
-                // Convertimos la fecha-hora del string ISO a LocalDateTime
-                LocalDateTime fechaHora = LocalDateTime.parse(fechaHoraStr);
-
-                Turno t = new Turno(idTurno, fechaHora, estado, dniCliente, idActividad);
-                lista.add(t);
-            }
-
-            System.out.println("Se cargaron " + lista.size() + " turnos desde " + ARCHIVO);
-
-        } catch (Exception e) {
-            System.err.println("Error al leer " + ARCHIVO + ": " + e.getMessage());
+            turno.setIdTurno(jTurno.getInt("idTurno"));
+            turno.setFechaHora(LocalDateTime.parse(jTurno.getString("fechaHora")));
+            String estadoStr = jTurno.getString("estado");
+            turno.setEstado(EstadoTurno.valueOf(estadoStr.toUpperCase()));
+            turno.setDniCliente(jTurno.optString("dniCliente", null));
+            turno.setIdActividad(jTurno.getInt("idActividad"));
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al mapear turno: " + e.getMessage());
         }
 
-        return lista;
+        return turno;
     }
 
+    // 🔹 Mapea un array JSON a una lista de Turnos
+    public static List<Turno> mapeoTurnos(JSONArray jTurnos) {
+        List<Turno> turnos = new ArrayList<>();
 
-    public static void guardarTurnos(ArrayList<Turno> turnos) throws JSONException {
-        JSONArray array = new JSONArray();
-
-        for (Turno t : turnos) {
-            JSONObject obj = new JSONObject();
-            obj.put("idTurno", t.getIdTurno());
-            obj.put("fechaHora", t.getFechaHora().toString()); // formato ISO 8601
-            obj.put("estado", t.getEstado());
-            obj.put("dniCliente", t.getDniCliente()); // puede ser null
-            obj.put("idActividad", t.getIdActividad());
-            array.put(obj);
+        for (int i = 0; i < jTurnos.length(); i++) {
+            try {
+                JSONObject jT = jTurnos.getJSONObject(i);
+                Turno turno = mapeoTurno(jT);
+                turnos.add(turno);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        JSONUtiles.grabarTurnos(array);
-
-        System.out.println("Archivo " + ARCHIVO + " actualizado correctamente.");
+        return turnos;
     }
 
-
+    // 🔹 Lee todos los turnos del archivo
+    public static List<Turno> leerTurnos() {
+        try {
+            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
+            JSONArray jTurnos = json.getJSONArray("turnos");
+            return mapeoTurnos(jTurnos);
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al leer turnos: " + e.getMessage());
+        }
+    }
 }

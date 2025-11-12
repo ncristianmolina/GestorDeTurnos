@@ -14,6 +14,9 @@ public class Turno implements Reservable {
     public Turno(int idTurno, LocalDateTime fechaHora, String estado, String dniCliente, int idActividad) {
     }
 
+    public Turno() {
+    }
+
     public Turno(int idTurno, LocalDateTime fechaHora, EstadoTurno estado, String dniCliente, int idActividad) {
         this.idTurno = idTurno;
         this.fechaHora = fechaHora;
@@ -59,6 +62,9 @@ public class Turno implements Reservable {
     @Override
     public void cancelar() {
         this.estado = EstadoTurno.CANCELADO;
+    }
+
+    public void setDniCliente(String dniCliente) {
     }
 }
 
