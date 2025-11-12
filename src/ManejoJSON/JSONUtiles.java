@@ -12,15 +12,27 @@ import java.io.IOException;
 public class JSONUtiles {
 
 
-    public static void grabar(JSONArray array) {
+    public static void grabar(JSONArray array, String nombreArchivo) {
         try {
-            FileWriter file = new FileWriter("persona.json");
+            FileWriter file = new FileWriter();
             file.write(array.toString());
             file.flush();
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void grabarActividades(JSONArray array) {
+        grabar(array, "actividades.json");
+    }
+
+    public static void grabarClientes(JSONArray array) {
+        grabar(array, "clientes.json");
+    }
+
+    public static void grabarTurnos(JSONArray array) {
+        grabar(array, "turnos.json");
     }
 
 
