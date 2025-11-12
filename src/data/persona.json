@@ -1,112 +1,225 @@
-[
-  {
-    "dni": "34782910",
-    "nombre": "Lucía",
-    "apellido": "Martínez",
-    "email": "lmartinez@estudiomartinez.com",
-    "password": "LcM!4829*pw",
-    "usuario": "lucia.martinez",
-    "tipo": "ADMIN",
-    "esActivo": true,
-    "nivelAcceso": 1
-  },
-  {
-    "dni": "36290122",
-    "nombre": "Tomás",
-    "apellido": "Benítez",
-    "email": "tbenitez@corpbenitez.com",
-    "password": "TmbZ_9031@!",
-    "usuario": "tomas.benitez",
-    "tipo": "ADMIN",
-    "esActivo": true,
-    "nivelAcceso": 1
-  },
-  {
-    "dni": "39842755",
-    "nombre": "Milena",
-    "apellido": "Rossi",
-    "email": "mrossi@consultingrossi.com",
-    "password": "MlR#7722pw",
-    "usuario": "milena.rossi",
-    "tipo": "ADMIN",
-    "esActivo": true,
-    "nivelAcceso": 1
-  },
-  {
-    "dni": "10293455",
-    "nombre": "Carlos",
-    "apellido": "Sosa",
-    "email": "carlos.sosa@gmail.com",
-    "password": "cso1234",
-    "usuario": "carlos.sosa",
-    "tipo": "CLIENTE",
-    "esActivo": true,
-    "telefono": "2291 448241"
-  },
-  {
-    "dni": "20384911",
-    "nombre": "María",
-    "apellido": "Gómez",
-    "email": "maria.gomez@outlook.com",
-    "password": "mgz2024",
-    "usuario": "maria.gomez",
-    "tipo": "CLIENTE",
-    "esActivo": false,
-    "telefono": "223 4731232"
-  },
-  {
-    "dni": "45203922",
-    "nombre": "Julián",
-    "apellido": "Ferreyra",
-    "email": "julian.ferreyra@hotmail.com",
-    "password": "jfn4567",
-    "usuario": "julian.ferreyra",
-    "tipo": "CLIENTE",
-    "esActivo": true,
-    "telefono": "2262 516179"
-  },
-  {
-    "dni": "30294811",
-    "nombre": "Sofía",
-    "apellido": "López",
-    "email": "sofia.lopez@gmail.com",
-    "password": "slp9981",
-    "usuario": "sofia.lopez",
-    "tipo": "CLIENTE",
-    "esActivo": true,
-    "telefono": "2291 462557"
-  },
-  {
-    "dni": "21495820",
-    "nombre": "Ramiro",
-    "apellido": "Roldán",
-    "email": "ramiro.roldan@hotmail.com",
-    "password": "rrl2200",
-    "usuario": "ramiro.roldan",
-    "tipo": "CLIENTE",
-    "esActivo": false,
-    "telefono": "2291 345743"
-  },
-  {
-    "dni": "43219954",
-    "nombre": "Valeria",
-    "apellido": "Crespo",
-    "email": "valeria.crespo@outlook.com",
-    "password": "vcs4820",
-    "usuario": "valeria.crespo",
-    "tipo": "CLIENTE",
-    "esActivo": true,
-    "telefono": "223 5528107"
-  },
-  {
-    "dni": "19482033",
-    "nombre": "Federico",
-    "apellido": "Ruiz",
-    "email": "federico.ruiz@gmail.com",
-    "password": "frz5540",
-    "usuario": "federico.ruiz",
-    "tipo": "CLIENTE",
-    "esActivo": true,
-    "telefono": "2291 563165"
-  }
-]
+{
+  "persona": [
+    {
+      "dni": "34782910",
+      "nombre": "Lucía",
+      "apellido": "Martínez",
+      "email": "lmartinez@estudiomartinez.com",
+      "password": "LcM!4829*pw",
+      "usuario": "lucia.martinez",
+      "tipo": "ADMIN",
+      "esActivo": true,
+      "nivelAcceso": 1
+    },
+    {
+      "dni": "36290122",
+      "nombre": "Tomás",
+      "apellido": "Benítez",
+      "email": "tbenitez@corpbenitez.com",
+      "password": "TmbZ_9031@!",
+      "usuario": "tomas.benitez",
+      "tipo": "ADMIN",
+      "esActivo": true,
+      "nivelAcceso": 1
+    },
+    {
+      "dni": "39842755",
+      "nombre": "Milena",
+      "apellido": "Rossi",
+      "email": "mrossi@consultingrossi.com",
+      "password": "MlR#7722pw",
+      "usuario": "milena.rossi",
+      "tipo": "ADMIN",
+      "esActivo": true,
+      "nivelAcceso": 0
+    },
+    {
+      "dni": "10293455",
+      "nombre": "Carlos",
+      "apellido": "Sosa",
+      "email": "carlos.sosa@gmail.com",
+      "password": "cso1234",
+      "usuario": "carlos.sosa",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-4820-3390"
+    },
+    {
+      "dni": "20384911",
+      "nombre": "María",
+      "apellido": "Gómez",
+      "email": "maria.gomez@outlook.com",
+      "password": "mgz2024",
+      "usuario": "maria.gomez",
+      "tipo": "CLIENTE",
+      "esActivo": false,
+      "telefono": "11-5092-8831"
+    },
+    {
+      "dni": "45203922",
+      "nombre": "Julián",
+      "apellido": "Ferreyra",
+      "email": "julian.ferreyra@hotmail.com",
+      "password": "jfn4567",
+      "usuario": "julian.ferreyra",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-3178-2244"
+    },
+    {
+      "dni": "30294811",
+      "nombre": "Sofía",
+      "apellido": "López",
+      "email": "sofia.lopez@gmail.com",
+      "password": "slp9981",
+      "usuario": "sofia.lopez",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-2910-7843"
+    },
+    {
+      "dni": "21495820",
+      "nombre": "Ramiro",
+      "apellido": "Roldán",
+      "email": "ramiro.roldan@hotmail.com",
+      "password": "rrl2200",
+      "usuario": "ramiro.roldan",
+      "tipo": "CLIENTE",
+      "esActivo": false,
+      "telefono": "11-5612-7741"
+    },
+    {
+      "dni": "43219954",
+      "nombre": "Valeria",
+      "apellido": "Crespo",
+      "email": "valeria.crespo@outlook.com",
+      "password": "vcs4820",
+      "usuario": "valeria.crespo",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-4719-2088"
+    },
+    {
+      "dni": "19482033",
+      "nombre": "Federico",
+      "apellido": "Ruiz",
+      "email": "federico.ruiz@gmail.com",
+      "password": "frz5540",
+      "usuario": "federico.ruiz",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-5839-1201"
+    },
+    {
+      "dni": "43992210",
+      "nombre": "Daniela",
+      "apellido": "Quinteros",
+      "email": "daniela.quinteros@hotmail.com",
+      "password": "dqt3341",
+      "usuario": "daniela.quinteros",
+      "tipo": "CLIENTE",
+      "esActivo": false,
+      "telefono": "11-6721-4900"
+    },
+    {
+      "dni": "20849211",
+      "nombre": "Hernán",
+      "apellido": "Pérez",
+      "email": "hernan.perez@outlook.com",
+      "password": "hpz2110",
+      "usuario": "hernan.perez",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-4502-8821"
+    },
+    {
+      "dni": "41029833",
+      "nombre": "Evelyn",
+      "apellido": "Arce",
+      "email": "evelyn.arce@gmail.com",
+      "password": "ear1102",
+      "usuario": "evelyn.arce",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-5698-3111"
+    },
+    {
+      "dni": "18220340",
+      "nombre": "Lucas",
+      "apellido": "Campos",
+      "email": "lucas.campos@hotmail.com",
+      "password": "lcp4421",
+      "usuario": "lucas.campos",
+      "tipo": "CLIENTE",
+      "esActivo": false,
+      "telefono": "11-3145-2001"
+    },
+    {
+      "dni": "34772218",
+      "nombre": "Ana",
+      "apellido": "Delgado",
+      "email": "ana.delgado@gmail.com",
+      "password": "adg2280",
+      "usuario": "ana.delgado",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-4799-6610"
+    },
+    {
+      "dni": "23394855",
+      "nombre": "Martín",
+      "apellido": "Espinosa",
+      "email": "martin.espinosa@outlook.com",
+      "password": "mep9120",
+      "usuario": "martin.espinosa",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-3258-7710"
+    },
+    {
+      "dni": "44583922",
+      "nombre": "Julieta",
+      "apellido": "Morales",
+      "email": "julieta.morales@hotmail.com",
+      "password": "jmr4901",
+      "usuario": "julieta.morales",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-5583-9921"
+    },
+    {
+      "dni": "30192844",
+      "nombre": "Nicolás",
+      "apellido": "Pacheco",
+      "email": "nicolas.pacheco@gmail.com",
+      "password": "npc2819",
+      "usuario": "nicolas.pacheco",
+      "tipo": "CLIENTE",
+      "esActivo": false,
+      "telefono": "11-5401-1032"
+    },
+    {
+      "dni": "21940211",
+      "nombre": "Carolina",
+      "apellido": "Vega",
+      "email": "carolina.vega@outlook.com",
+      "password": "cvg1010",
+      "usuario": "carolina.vega",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-6310-2741"
+    },
+    {
+      "dni": "18992211",
+      "nombre": "Bruno",
+      "apellido": "Sánchez",
+      "email": "bruno.sanchez@gmail.com",
+      "password": "bsn4021",
+      "usuario": "bruno.sanchez",
+      "tipo": "CLIENTE",
+      "esActivo": true,
+      "telefono": "11-4741-3820"
+    }
+  ]
+}
+

@@ -38,6 +38,11 @@ public class GestorActividades extends GestorGenerico<Actividad> {
 
     /*Método actividades con más inscriptos*/
 
+    /**Recorre el listado de actividades  y el de turnos
+     * en turnos detecta los id de las actividades  y los suma**/
+
+
+
     public static List<Actividad> actividadesConMasInscriptos(List<Actividad> actividades, List<Turno> turnos) {
 
         int maxInscriptos = 0;

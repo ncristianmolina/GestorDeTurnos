@@ -101,6 +101,8 @@ public class GestorTurnos extends GestorGenerico<Turno> {
 
     //Método turnos por cliente
 
+    /**Recorre el array de turnos y los filtra por el dni del cliente **/
+
     public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
         List<Turno> turnosCliente = new ArrayList<>();
 
