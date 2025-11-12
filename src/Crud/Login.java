@@ -1,93 +1,100 @@
 package Crud;
 
-import Gestores.GestorTurnos;
-import Gestores.GestorClientes;
 import java.util.Scanner;
+import Modelos.*;
+import Enum.TipoUsuario;
 
-/**
- * Clase Login
- * Controla el flujo principal del sistema de turnos.
- * Desde aquí se accede a los distintos CRUDs (Clientes, Actividades y Turnos).
- *
-
- */
 public class Login {
 
-    private GestorClientes gestorClientes;
-    private GestorTurnos gestorTurnos;
-    private CrudClientes crudClientes;
-    private CrudActividades crudActividades;
-    private CrudTurnos crudTurnos;
+    private final Scanner scanner;
+    private final CrudClientes crudClientes;
+    private final CrudActividades crudActividades;
+    private final CrudTurnos crudTurnos;
 
-    public Login() {
-        // Inicializamos los gestores y CRUDs
-        this.gestorClientes = new GestorClientes();
-        this.gestorTurnos = new GestorTurnos();
-        this.crudActividades = new CrudActividades();
-        this.crudClientes = new CrudClientes(gestorClientes);
-        this.crudTurnos = new CrudTurnos(gestorTurnos, gestorClientes, crudActividades);
+    public Login(Scanner scanner, CrudClientes crudClientes, CrudActividades crudActividades, CrudTurnos crudTurnos) {
+        this.scanner = scanner;
+        this.crudClientes = crudClientes;
+        this.crudActividades = crudActividades;
+        this.crudTurnos = crudTurnos;
     }
 
-    /**
-     * Método principal del menú de opciones del sistema.
-     */
     public void iniciar() {
-        Scanner sc = new Scanner(System.in);
+        System.out.println("=== INICIO DE SESIÓN ===");
+        System.out.print("Usuario: ");
+        String usuario = scanner.nextLine();
+        System.out.print("Contraseña: ");
+        String pass = scanner.nextLine();
+
+        if (usuario.equalsIgnoreCase("admin")) {
+            Administrador admin = new Administrador("1", "Admin", "Root", "admin@mail.com", "123", "admin", true, 2);
+            menuAdministrador(admin);
+        } else {
+            Cliente cliente = new Cliente("123", "Juan", "Pérez", "juan@mail.com", "123", usuario, true, "223456789");
+            menuCliente(cliente);
+        }
+    }
+
+    private void menuAdministrador(Administrador admin) {
         int opcion;
-
         do {
-            System.out.println("\n===================================");
-            System.out.println("     🕒 SISTEMA DE TURNOS CRUD");
-            System.out.println("===================================");
-            System.out.println("1️⃣  - Alta de Cliente");
-            System.out.println("2️⃣  - Baja de Cliente");
-            System.out.println("3️⃣  - Modificación de Cliente");
-            System.out.println("4️⃣  - Listar Clientes");
-            System.out.println("-----------------------------------");
-            System.out.println("5️⃣  - Alta de Actividad");
-            System.out.println("6️⃣  - Modificación de Actividad");
-            System.out.println("7️⃣  - Eliminación de Actividad");
-            System.out.println("8️⃣  - Listar Actividades");
-            System.out.println("-----------------------------------");
-            System.out.println("9️⃣  - Reservar Turno");
-            System.out.println("🔟  - Cancelar Turno");
-            System.out.println("11️⃣ - Modificar Turno");
-            System.out.println("12️⃣ - Listar Turnos");
-            System.out.println("-----------------------------------");
-            System.out.println("0️⃣  - Salir del sistema");
-            System.out.println("===================================");
-            System.out.print("Seleccione una opción: ");
-
-            // Evitar errores por caracteres
-            while (!sc.hasNextInt()) {
-                System.out.print("Por favor, ingrese un número válido: ");
-                sc.next();
-            }
-            opcion = sc.nextInt();
-            sc.nextLine(); // limpiar buffer
+            System.out.println("\n=== PANEL ADMINISTRADOR (Nivel " + admin.getNivelAcceso() + ") ===");
+            System.out.println("1️⃣ Alta de cliente");
+            System.out.println("2️⃣ Baja de cliente");
+            System.out.println("3️⃣ Modificación de cliente");
+            System.out.println("4️⃣ Listar clientes");
+            System.out.println("5️⃣ Alta de actividad");
+            System.out.println("6️⃣ Modificación de actividad");
+            if (admin.getNivelAcceso() == 2) System.out.println("7️⃣ Baja de actividad");
+            System.out.println("8️⃣ Listar actividades");
+            System.out.println("9️⃣ Reservar turno");
+            System.out.println("🔟 Cancelar turno");
+            System.out.println("11️⃣ Listar turnos");
+            System.out.println("0️⃣ Salir");
+            System.out.print("Opción: ");
+            opcion = Integer.parseInt(scanner.nextLine());
 
             switch (opcion) {
                 case 1 -> crudClientes.alta();
                 case 2 -> crudClientes.baja();
                 case 3 -> crudClientes.modificacion();
-                case 4 -> crudClientes.listar();
-
+                case 4 -> crudClientes.listarClientes();
                 case 5 -> crudActividades.alta();
                 case 6 -> crudActividades.modificacion();
-                case 7 -> crudActividades.baja();
-                case 8 -> crudActividades.listar();
-
+                case 7 -> { if (admin.getNivelAcceso() == 2) crudActividades.baja(); }
+                case 8 -> crudActividades.listarActividades();
                 case 9 -> crudTurnos.alta();
                 case 10 -> crudTurnos.cancelar();
-                case 11 -> crudTurnos.modificacion();
-                case 12 -> crudTurnos.listar();
-
-                case 0 -> System.out.println("👋 Cerrando sesión... ¡Hasta luego!");
-                default -> System.out.println("⚠️  Opción inválida, intente nuevamente.");
+                case 11 -> crudTurnos.listarTurnos();
+                case 0 -> System.out.println("👋 Cerrando sesión...");
+                default -> System.out.println("⚠ Opción inválida.");
             }
-
         } while (opcion != 0);
+    }
 
-        sc.close();
+    private void menuCliente(Cliente cliente) {
+        int opcion;
+        do {
+            System.out.println("\n=== PANEL CLIENTE ===");
+            System.out.println("1️⃣ Ver mis turnos");
+            System.out.println("2️⃣ Reservar turno");
+            System.out.println("3️⃣ Cancelar turno");
+            System.out.println("4️⃣ Desactivar cuenta");
+            System.out.println("0️⃣ Salir");
+            System.out.print("Opción: ");
+            opcion = Integer.parseInt(scanner.nextLine());
+
+            switch (opcion) {
+                case 1 -> crudTurnos.listarTurnos();
+                case 2 -> crudTurnos.alta();
+                case 3 -> crudTurnos.cancelar();
+                case 4 -> {
+                    cliente.setEsActivo(false);
+                    System.out.println("✔ Cuenta desactivada.");
+                    opcion = 0;
+                }
+                case 0 -> System.out.println("👋 Saliendo...");
+                default -> System.out.println("⚠ Opción inválida.");
+            }
+        } while (opcion != 0);
     }
 }

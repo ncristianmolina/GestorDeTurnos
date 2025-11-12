@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorGenerico<T> {
-    private List<T> lista;
+    protected List<T> lista;
 
     public GestorGenerico() {
         this.lista = new ArrayList<>();
     }
 
-    public void agregar(T item) {
-
-        lista.add(item);
+    public void agregar(T elemento) {
+        lista.add(elemento);
+        System.out.println("Elemento agregado correctamente.");
     }
 
-    public void eliminar(T item) {
+    public List<T> listar() {
+        return new ArrayList<>(lista);
+    }
 
-        lista.remove(item);
+    public int cantidad() {
+        return lista.size();
     }
 
     public T buscarPorIndice(int index) {
@@ -27,13 +30,7 @@ public class GestorGenerico<T> {
         return null;
     }
 
-    public List<T> listar() {
-
-        return new ArrayList<>(lista);
-    }
-
-    public int cantidad() {
-
-        return lista.size();
+    public List<T> getLista() {
+        return lista;
     }
 }

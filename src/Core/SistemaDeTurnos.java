@@ -1,38 +1,25 @@
 package Core;
 
-import Gestores.GestorGenerico;
-import Modelos.Cliente;
-import Modelos.Turno;
-import Modelos.Administrador;
-
+import Crud.*;
 import java.util.Scanner;
 
 public class SistemaDeTurnos {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private GestorGenerico<Turno> gestorTurnos;
-    private GestorGenerico<Cliente> gestorClientes;
-    private GestorGenerico<Administrador> gestorAdmins;
+    private final CrudClientes crudClientes;
+    private final CrudActividades crudActividades;
+    private final CrudTurnos crudTurnos;
+    private final Login login;
 
     public SistemaDeTurnos() {
-        this.gestorTurnos = new GestorGenerico<>();
-        this.gestorClientes = new GestorGenerico<>();
-        this.gestorAdmins = new GestorGenerico<>();
-    }
-
-    public GestorGenerico<Turno> getGestorTurnos() {
-        return gestorTurnos;
-    }
-
-    public GestorGenerico<Cliente> getGestorClientes() {
-        return gestorClientes;
-    }
-
-    public GestorGenerico<Administrador> getGestorAdmins() {
-        return gestorAdmins;
+        this.crudClientes = new CrudClientes(scanner);
+        this.crudActividades = new CrudActividades(scanner);
+        this.crudTurnos = new CrudTurnos(scanner, crudClientes, crudActividades);
+        this.login = new Login(scanner, crudClientes, crudActividades, crudTurnos);
     }
 
     public void iniciar() {
+        login.iniciar();
     }
 }

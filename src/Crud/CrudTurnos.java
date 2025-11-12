@@ -1,123 +1,95 @@
 package Crud;
 
-import Modelos.Actividad;
-import Modelos.Cliente;
+import Gestores.GestorGenerico;
 import Modelos.Turno;
-import Gestores.GestorClientes;
-import Gestores.GestorTurnos;
-import Exceptions.*;
+import Modelos.Cliente;
+import Modelos.Actividad;
 import Enum.EstadoTurno;
-import ManejoJSON.gestionJSONTurnos;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class CrudTurnos {
-    private GestorTurnos gestorTurnos;
-    private GestorClientes gestorClientes;
-    private CrudActividades crudActividades;
-    private Scanner scanner;
+public class CrudTurnos extends GestorGenerico<Turno> {
+
+    private final Scanner scanner;
+    private final CrudClientes crudClientes;
+    private final CrudActividades crudActividades;
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public CrudTurnos(GestorTurnos gt, GestorClientes gc, CrudActividades ca) {
-        this.gestorTurnos = gt;
-        this.gestorClientes = gc;
-        this.crudActividades = ca;
-        this.scanner = new Scanner(System.in);
+    public CrudTurnos(Scanner scanner, CrudClientes crudClientes, CrudActividades crudActividades) {
+        super();
+        this.scanner = scanner;
+        this.crudClientes = crudClientes;
+        this.crudActividades = crudActividades;
     }
 
     public void alta() {
         System.out.println("=== RESERVAR TURNO ===");
-        System.out.print("DNI cliente: ");
+        System.out.print("DNI del cliente: ");
         String dni = scanner.nextLine();
-        try {
-            Cliente c = gestorClientes.buscarPorDni(dni);
 
-            System.out.println("Actividades disponibles:");
-            crudActividades.listar();
-            System.out.print("Tipo de actividad a reservar: ");
-            String tipo = scanner.nextLine();
-
-            Actividad chosen = null;
-            for (Actividad a : crudActividades.getActividades()) {
-                if (a.getTipoActividad().equalsIgnoreCase(tipo)) {
-                    chosen = a;
-                    break;
-                }
+        Cliente cliente = null;
+        for (Cliente c : crudClientes.getLista()) {
+            if (c.getDni().equalsIgnoreCase(dni) && c.getEsActivo()) {
+                cliente = c;
+                break;
             }
-            if (chosen == null) {
-                System.out.println("Actividad no encontrada.");
-                return;
-            }
-
-            System.out.print("Fecha y hora (yyyy-MM-dd HH:mm): ");
-            String fecha = scanner.nextLine();
-            LocalDateTime fechaHora = LocalDateTime.parse(fecha, FORMAT);
-
-            gestorTurnos.reservarTurno(chosen, fechaHora, dni);
-            // persistir turnos
-            gestionJSONTurnos.guardarTurnos(gestorTurnos.turnos);
-        } catch (ClienteNoEncontradoException | TurnoOcupadoException | NoHayTurnosDisponiblesException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception ex) {
-            System.out.println("Error al reservar: " + ex.getMessage());
         }
+        if (cliente == null) {
+            System.out.println("⚠ Cliente no encontrado o inactivo.");
+            return;
+        }
+
+        crudActividades.listarActividades();
+        System.out.print("Ingrese ID de actividad: ");
+        int idAct = Integer.parseInt(scanner.nextLine());
+
+        Actividad actividad = null;
+        for (Actividad a : crudActividades.getLista()) {
+            if (a.getIdActividad() == idAct) {
+                actividad = a;
+                break;
+            }
+        }
+        if (actividad == null) {
+            System.out.println("⚠ Actividad no encontrada.");
+            return;
+        }
+
+        System.out.print("Fecha y hora (yyyy-MM-dd HH:mm): ");
+        LocalDateTime fechaHora = LocalDateTime.parse(scanner.nextLine(), FORMAT);
+
+        int idTurno = lista.size() + 1;
+        Turno turno = new Turno(idTurno, fechaHora, EstadoTurno.RESERVADO, dni, idAct);
+        agregar(turno);
+
+        System.out.println("✔ Turno reservado correctamente.");
     }
 
     public void cancelar() {
         System.out.println("=== CANCELAR TURNO ===");
-        System.out.print("ID de turno: ");
+        System.out.print("Ingrese ID del turno: ");
         int id = Integer.parseInt(scanner.nextLine());
-        Turno toCancel = null;
-        for (Turno t : gestorTurnos.turnos) {
+
+        for (Turno t : lista) {
             if (t.getIdTurno() == id) {
-                toCancel = t;
-                break;
+                t.cancelar();
+                System.out.println("✔ Turno cancelado.");
+                return;
             }
         }
-        if (toCancel != null) {
-            toCancel.cancelar();
-            System.out.println("Turno cancelado.");
-            gestionJSONTurnos.guardarTurnos(gestorTurnos.turnos);
-        } else {
-            System.out.println("Turno no encontrado.");
-        }
+
+        System.out.println("⚠ No se encontró un turno con ese ID.");
     }
 
-    public void modificacion() {
-        System.out.println("=== MODIFICAR TURNO ===");
-        System.out.print("ID de turno: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        Turno toModify = null;
-        for (Turno t : gestorTurnos.turnos) {
-            if (t.getIdTurno() == id) {
-                toModify = t;
-                break;
-            }
-        }
-        if (toModify == null) {
-            System.out.println("Turno no encontrado.");
-            return;
-        }
-
-        System.out.print("Nueva fecha y hora (yyyy-MM-dd HH:mm): ");
-        String fecha = scanner.nextLine();
-        if (!fecha.isBlank()) {
-            LocalDateTime nueva = LocalDateTime.parse(fecha, FORMAT);
-            toModify.setFechaHora(nueva);
-            System.out.println("Turno modificado.");
-            gestionJSONTurnos.guardarTurnos(gestorTurnos.turnos);
-        }
-    }
-
-    public void listar() {
+    public void listarTurnos() {
         System.out.println("=== LISTA DE TURNOS ===");
-        for (Turno t : gestorTurnos.turnos) {
-            System.out.println("ID:" + t.getIdTurno() +
-                    " - Fecha:" + t.getFechaHora() +
-                    " - Estado:" + t.getEstado() +
-                    " - Cliente:" + t.getCliente().getDni() +
-                    " - Actividad:" + t.getActividad().getTipoActividad());
+        for (Turno t : lista) {
+            System.out.println("ID: " + t.getIdTurno() +
+                    " | Cliente: " + t.getDniCliente() +
+                    " | Actividad: " + t.getIdActividad() +
+                    " | Fecha: " + t.getFechaHora() +
+                    " | Estado: " + t.getEstado());
         }
     }
 }

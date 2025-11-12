@@ -1,25 +1,31 @@
 package Crud;
 
+import Gestores.GestorGenerico;
 import Modelos.Cliente;
-import Gestores.GestorClientes;
 import Enum.TipoUsuario;
-import Exceptions.*;
-import ManejoJSON.gestionJSONPersona;
 import java.util.Scanner;
 
-public class CrudClientes {
-    private GestorClientes gestor;
-    private Scanner scanner;
+public class CrudClientes extends GestorGenerico<Cliente> {
 
-    public CrudClientes(GestorClientes gestor) {
-        this.gestor = gestor;
-        this.scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public CrudClientes(Scanner scanner) {
+        super();
+        this.scanner = scanner;
     }
 
     public void alta() {
         System.out.println("=== ALTA DE CLIENTE ===");
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
+
+        for (Cliente c : lista) {
+            if (c.getDni().equalsIgnoreCase(dni)) {
+                System.out.println("⚠ Ya existe un cliente con ese DNI.");
+                return;
+            }
+        }
+
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Apellido: ");
@@ -29,63 +35,60 @@ public class CrudClientes {
         System.out.print("Usuario: ");
         String usuario = scanner.nextLine();
         System.out.print("Password: ");
-        String pass = scanner.nextLine();
+        String password = scanner.nextLine();
         System.out.print("Teléfono: ");
         String telefono = scanner.nextLine();
 
-        try {
-            Cliente nuevo = new Cliente(dni, nombre, apellido, email, pass, usuario, telefono);
-            nuevo.setTipo(TipoUsuario.CLIENTE);
-            nuevo.setEsActivo(true);
-            gestor.agregarPersona(nuevo);
-            // persistir
-            gestionJSONPersona.guardarClientes(gestor.getLista());
-        } catch (DNIClienteDuplicadoException e) {
-            System.out.println(e.getMessage());
-        }
+        Cliente nuevo = new Cliente(dni, nombre, apellido, email, password, usuario, true, telefono);
+        nuevo.setTipo(TipoUsuario.CLIENTE);
+        agregar(nuevo);
+
+        System.out.println("✔ Cliente agregado correctamente.");
     }
 
     public void baja() {
-        System.out.println("=== BAJA DE CLIENTE (baja lógica) ===");
+        System.out.println("=== BAJA LÓGICA DE CLIENTE ===");
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
-        try {
-            Cliente c = gestor.buscarPorDni(dni);
-            c.setEsActivo(false); // baja lógica
-            System.out.println("Cliente desactivado correctamente.");
-            gestionJSONPersona.guardarClientes(gestor.getLista());
-        } catch (ClienteNoEncontradoException e) {
-            System.out.println(e.getMessage());
+        for (Cliente c : lista) {
+            if (c.getDni().equalsIgnoreCase(dni)) {
+                c.setEsActivo(false);
+                System.out.println("✔ Cliente desactivado correctamente.");
+                return;
+            }
         }
+
+        System.out.println("⚠ No se encontró un cliente con ese DNI.");
     }
 
     public void modificacion() {
         System.out.println("=== MODIFICAR CLIENTE ===");
-        System.out.print("DNI del cliente a modificar: ");
+        System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
-        try {
-            Cliente c = gestor.buscarPorDni(dni);
-            System.out.print("Nuevo email (ENTER para mantener): ");
-            String nuevoEmail = scanner.nextLine();
-            if (!nuevoEmail.isBlank()) c.setEmail(nuevoEmail);
+        for (Cliente c : lista) {
+            if (c.getDni().equalsIgnoreCase(dni)) {
+                System.out.print("Nuevo email (ENTER para mantener): ");
+                String email = scanner.nextLine();
+                if (!email.isBlank()) c.setEmail(email);
 
-            System.out.print("Nuevo teléfono (ENTER para mantener): ");
-            String nuevoTel = scanner.nextLine();
-            if (!nuevoTel.isBlank()) c.setTelefono(nuevoTel);
+                System.out.print("Nuevo teléfono (ENTER para mantener): ");
+                String tel = scanner.nextLine();
+                if (!tel.isBlank()) c.setTelefono(tel);
 
-            System.out.println("Cliente modificado con éxito.");
-            gestionJSONPersona.guardarClientes(gestor.getLista());
-        } catch (ClienteNoEncontradoException e) {
-            System.out.println(e.getMessage());
+                System.out.println("✔ Cliente modificado correctamente.");
+                return;
+            }
         }
+        System.out.println("⚠ Cliente no encontrado.");
     }
 
-    public void listar() {
+    public void listarClientes() {
         System.out.println("=== LISTA DE CLIENTES ===");
-        for (Cliente c : gestor.getLista()) {
-            System.out.println(c.getDni() + " - " + c.getNombre() + " " + c.getApellido() + " - Activo: " + c.getEstado());
+        for (Cliente c : lista) {
+            System.out.println(c.getDni() + " - " + c.getNombre() + " " + c.getApellido() +
+                    " - Activo: " + c.getEsActivo());
         }
     }
 }
