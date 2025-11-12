@@ -127,6 +127,36 @@ public class GestorTurnos {
     }
 
 
+    //Método para listar las actividades que todavía tienen turnos disponibles.
+    // * Se considera que una actividad está disponible si la cantidad de turnos
+    // * reservados es menor que su capacidad máxima.
+
+    public static List<Actividad> listarTurnosDisponibles(List<Actividad> actividades, List<Turno> turnos) {
+        List<Actividad> disponibles = new ArrayList<>();
+
+        for (Actividad a : actividades) {
+            int contador = 0;
+
+            // Contamos los turnos asociados a esta actividad
+            for (Turno t : turnos) {
+                if (t.getIdActividad() == a.getIdActividad()) {
+                    contador++;
+                }
+            }
+
+            // Si todavía hay cupo, se agrega a la lista
+            if (contador < a.getCapacidadMaxima()) {
+                disponibles.add(a);
+            }
+        }
+
+        return disponibles;
+    }
+
+
+
+
+
 
 
 
