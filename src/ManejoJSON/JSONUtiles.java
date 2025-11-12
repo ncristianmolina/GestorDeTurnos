@@ -14,7 +14,7 @@ public class JSONUtiles {
 
     public static void grabar(JSONArray array, String nombreArchivo) {
         try {
-            FileWriter file = new FileWriter();
+            FileWriter file = new FileWriter(nombreArchivo);
             file.write(array.toString());
             file.flush();
             file.close();
