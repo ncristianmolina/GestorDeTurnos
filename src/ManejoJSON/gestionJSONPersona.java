@@ -13,86 +13,61 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class gestionJSONPersona {
 
     private static final String ARCHIVO = "persona.json";
 
-    /**
-     * Carga todas las personas desde el archivo persona.json
-     */
-    public static ArrayList<Persona> leerPersonas() {
-        ArrayList<Persona> lista = new ArrayList<>();
+    public static Persona mapeoPersona(JSONObject jPersona) {
+        Persona persona;
 
         try {
-            JSONTokener tokener = JSONUtiles.leer(ARCHIVO);
-            if (tokener == null) {
-                System.err.println("⚠ No se pudo abrir el archivo JSON: " + ARCHIVO);
-                return lista;
+            String dni = jPersona.getString("dni");
+            String nombre = jPersona.getString("nombre");
+            String apellido = jPersona.getString("apellido");
+            String email = jPersona.getString("email");
+            String password = jPersona.getString("password");
+            String usuario = jPersona.getString("usuario");
+            String tipo = jPersona.getString("tipo");
+            boolean esActivo = jPersona.getBoolean("esActivo");
+
+            if (tipo.equalsIgnoreCase("ADMIN")) {
+                persona = new Administrador(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
+            } else {
+                persona = new Cliente(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
             }
 
-            JSONObject raiz = new JSONObject(tokener);
-            JSONArray array = raiz.getJSONArray("personas");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj = array.getJSONObject(i);
-
-                String dni = obj.getString("dni");
-                String nombre = obj.getString("nombre");
-                String apellido = obj.getString("apellido");
-                String email = obj.getString("email");
-                String password = obj.getString("password");
-                String usuario = obj.getString("usuario");
-                String tipo = obj.getString("tipo");
-                boolean esActivo = obj.getBoolean("esActivo");
-
-                Persona p;
-                if (tipo.equalsIgnoreCase("ADMIN")) {
-                    p = new Administrador(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
-                } else {
-                    p = new Cliente(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
-                }
-                lista.add(p);
-            }
-
-            System.out.println("✔ Se cargaron " + lista.size() + " personas desde " + ARCHIVO);
-
-        } catch (Exception e) {
-            System.err.println("⚠ Error al leer " + ARCHIVO + ": " + e.getMessage());
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al mapear persona: " + e.getMessage());
         }
 
-        return lista;
+        return persona;
     }
 
-    /**
-     * Guarda una lista de personas en persona.json
-     */
-    public static void guardarPersonas(ArrayList<Persona> personas) throws JSONException {
-        JSONArray array = new JSONArray();
+    public static List<Persona> mapeoPersonas(JSONArray jPersonas) {
+        List<Persona> personas = new ArrayList<>();
 
-        for (Persona p : personas) {
+        for (int i = 0; i < jPersonas.length(); i++) {
             try {
-                JSONObject obj = new JSONObject();
-                obj.put("dni", p.getDni());
-                obj.put("nombre", p.getNombre());
-                obj.put("apellido", p.getApellido());
-                obj.put("email", p.getEmail());
-                obj.put("password", p.getPassword());
-                obj.put("usuario", p.getUsuario());
-                obj.put("tipo", p.getTipo());
-                obj.put("esActivo", p.getEsActivo());
-                array.put(obj);
-            } catch(JSONException e)
-            {
+                JSONObject jPers = jPersonas.getJSONObject(i);
+                Persona persona = mapeoPersona(jPers);
+                personas.add(persona);
+            } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-
-
-            JSONObject persona = new JSONObject();
-            persona.put("personas", array);
-            JSONUtiles.grabarPersonas(persona.getJSONArray("personas"));
         }
 
-        System.out.println("Archivo persona.json actualizado correctamente.");
+        return personas;
+    }
+
+    public static List<Persona> leerPersonas() {
+        try {
+            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
+            JSONArray jPersonas = json.getJSONArray("personas");
+            return mapeoPersonas(jPersonas);
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al leer personas: " + e.getMessage());
+        }
     }
 }
