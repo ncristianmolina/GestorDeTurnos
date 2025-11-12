@@ -1,89 +1,110 @@
 package Crud;
 
 import Modelos.Actividad;
-import java.util.ArrayList;
-import java.util.List;
+import Gestores.GestorGenerico;
 import java.util.Scanner;
-import ManejoJSON.gestionJSONActividad;
 
-public class CrudActividades {
-    // Si tenés un GestorActividades, usalo; acá mantengo una lista local simple
-    private List<Actividad> actividades;
-    private Scanner scanner;
+public class CrudActividades extends GestorGenerico<Actividad> {
 
-    public CrudActividades() {
-        this.actividades = new ArrayList<>();
-        this.scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public CrudActividades(Scanner scanner) {
+        super();
+        this.scanner = scanner; // reutiliza el scanner de SistemaDeTurnos
     }
 
-    public List<Actividad> getActividades() {
-        return actividades;
-    }
-
+    // === ALTA ===
     public void alta() {
         System.out.println("=== ALTA DE ACTIVIDAD ===");
-        System.out.print("Tipo actividad: ");
-        String tipo = scanner.nextLine();
+
+        // 1️⃣ capacidadMaxima
         System.out.print("Capacidad máxima: ");
-        int cap = Integer.parseInt(scanner.nextLine());
+        int capacidad = Integer.parseInt(scanner.nextLine());
+
+        // 2️⃣ precio
         System.out.print("Precio: ");
         double precio = Double.parseDouble(scanner.nextLine());
 
-        Actividad a = new Actividad(cap, precio, tipo);
-        actividades.add(a);
-        System.out.println("Actividad agregada.");
-        gestionJSONActividad.guardarActividades(actividades);
+        // 3️⃣ tipoActividad
+        System.out.print("Tipo de actividad: ");
+        String tipo = scanner.nextLine();
+
+        // 4️⃣ idActividad (autoincremental)
+        int id = lista.size() + 1;
+
+        // Crear actividad con setters
+        Actividad nueva = new Actividad();
+        nueva.setCapacidadMaxima(capacidad);
+        nueva.setPrecio(precio);
+        nueva.setTipoActividad(tipo);
+        nueva.setIdActividad(id);
+
+        agregar(nueva);
+
+        System.out.println("✔ Actividad agregada correctamente.");
     }
 
+    // === BAJA ===
     public void baja() {
         System.out.println("=== ELIMINAR ACTIVIDAD ===");
-        System.out.print("Tipo actividad a eliminar: ");
-        String tipo = scanner.nextLine();
-        Actividad toRemove = null;
-        for (Actividad a : actividades) {
-            if (a.getTipoActividad().equalsIgnoreCase(tipo)) {
-                toRemove = a;
+        System.out.print("Ingrese el ID de la actividad a eliminar: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        Actividad eliminar = null;
+        for (Actividad a : lista) {
+            if (a.getIdActividad() == id) {
+                eliminar = a;
                 break;
             }
         }
-        if (toRemove != null) {
-            actividades.remove(toRemove);
-            System.out.println("Actividad eliminada.");
-            gestionJSONActividad.guardarActividades(actividades);
+
+        if (eliminar != null) {
+            lista.remove(eliminar);
+            System.out.println("✔ Actividad eliminada correctamente.");
         } else {
-            System.out.println("No se encontró actividad con ese tipo.");
+            System.out.println("⚠ No se encontró una actividad con ese ID.");
         }
     }
 
+    // === MODIFICACIÓN ===
     public void modificacion() {
         System.out.println("=== MODIFICAR ACTIVIDAD ===");
-        System.out.print("Tipo actividad a modificar: ");
-        String tipo = scanner.nextLine();
-        Actividad found = null;
-        for (Actividad a : actividades) {
-            if (a.getTipoActividad().equalsIgnoreCase(tipo)) {
-                found = a;
-                break;
+        System.out.print("Ingrese el ID de la actividad: ");
+        int id = Integer.parseInt(scanner.nextLine());
+
+        for (Actividad a : lista) {
+            if (a.getIdActividad() == id) {
+                System.out.println("Actividad actual: " + a);
+
+                System.out.print("Nueva capacidad (ENTER para mantener): ");
+                String capStr = scanner.nextLine();
+                if (!capStr.isBlank()) a.setCapacidadMaxima(Integer.parseInt(capStr));
+
+                System.out.print("Nuevo precio (ENTER para mantener): ");
+                String precioStr = scanner.nextLine();
+                if (!precioStr.isBlank()) a.setPrecio(Double.parseDouble(precioStr));
+
+                System.out.print("Nuevo tipo de actividad (ENTER para mantener): ");
+                String tipoStr = scanner.nextLine();
+                if (!tipoStr.isBlank()) a.setTipoActividad(tipoStr);
+
+                System.out.println("✔ Actividad modificada correctamente.");
+                return;
             }
         }
-        if (found != null) {
-            System.out.print("Nueva capacidad (ENTER para mantener): ");
-            String capStr = scanner.nextLine();
-            if (!capStr.isBlank()) found.setCapacidadMaxima(Integer.parseInt(capStr));
 
-            System.out.print("Nuevo precio (ENTER para mantener): ");
-            String precioStr = scanner.nextLine();
-            if (!precioStr.isBlank()) found.setPrecio(Double.parseDouble(precioStr));
-
-            System.out.println("Actividad modificada.");
-            gestionJSONActividad.guardarActividades(actividades);
-        } else {
-            System.out.println("Actividad no encontrada.");
-        }
+        System.out.println("⚠ No se encontró una actividad con ese ID.");
     }
 
-    public void listar() {
+    // === LISTAR ===
+    public void listarActividades() {
         System.out.println("=== LISTA DE ACTIVIDADES ===");
-        for (Actividad a : actividades) System.out.println(a);
+        if (lista.isEmpty()) {
+            System.out.println("⚠ No hay actividades registradas.");
+            return;
+        }
+        for (Actividad a : lista) {
+            System.out.println(a);
+        }
     }
 }
