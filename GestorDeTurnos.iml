@@ -11,5 +11,6 @@
     <orderEntry type="library" name="java-json (5)" level="project" />
     <orderEntry type="library" name="java-json1" level="project" />
     <orderEntry type="library" name="java-json2" level="project" />
+    <orderEntry type="library" name="javafx-sdk-25.0" level="project" />
   </component>
 </module>

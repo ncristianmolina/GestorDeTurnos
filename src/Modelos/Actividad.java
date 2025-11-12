@@ -7,6 +7,9 @@ public class Actividad {
     private int idActividad;
 
     public Actividad() {
+    }
+
+    public Actividad(int capacidadMaxima, double precio, String tipoActividad, int idActividad) {
         this.capacidadMaxima = capacidadMaxima;
         this.precio = precio;
         this.tipoActividad = tipoActividad;
