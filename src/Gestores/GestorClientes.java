@@ -6,12 +6,18 @@ import Modelos.Cliente;
 import Modelos.Persona;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GestorClientes extends GestorGenerico<Persona> {
-    private ArrayList<Cliente> lista;
+    public GestorClientes() {
+        super();
+    }
 
-    // Agregar persona validando que el DNI no exista
+    public GestorClientes(List<Persona> persona) {
+        this.lista = persona;
+    }
+
     public void agregarPersona(Cliente persona) throws DNIClienteDuplicadoException {
         for (Persona p : lista) {
             if (p.getDni().equalsIgnoreCase(persona.getDni())) {
@@ -22,9 +28,8 @@ public class GestorClientes extends GestorGenerico<Persona> {
         System.out.println("Persona agregada: " + persona.getNombre() + " " + persona.getApellido());
     }
 
-    // Buscar persona por DNI
-    public Cliente buscarPorDni(String dni) throws ClienteNoEncontradoException {
-        for (Cliente p : lista) {
+    public Persona buscarPorDni(String dni) throws ClienteNoEncontradoException {
+        for (Persona p : lista) {
             if (p.getDni().equalsIgnoreCase(dni)) {
                 return p;
             }
@@ -32,7 +37,7 @@ public class GestorClientes extends GestorGenerico<Persona> {
         throw new ClienteNoEncontradoException("No se encontró un cliente con DNI: " + dni);
     }
 
-    // Eliminar persona por DNI
+
     public void eliminarPorDni(String dni) throws ClienteNoEncontradoException {
         Persona personaAEliminar = null;
         for (Persona p : lista) {
