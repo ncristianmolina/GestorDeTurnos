@@ -113,6 +113,21 @@ public class GestorTurnos {
         return resultado;
     }
 
+    /*Método turnos por cliente*/
+
+    public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
+        List<Turno> turnosCliente = new ArrayList<>();
+
+        for (Turno t : turnos) {
+            if (t.getDniCliente().equals(dniClienteBuscado)) {
+                turnosCliente.add(t);
+            }
+        }
+
+        return turnosCliente;
+    }
+
+
 
 
 
