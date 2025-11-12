@@ -134,25 +134,53 @@ public class SistemaDeTurnos {
             opcion = linea.isEmpty() ? -1 : Integer.parseInt(linea);
 
             switch (opcion) {
-                case 1 -> crudClientes.alta();
-                case 2 -> crudClientes.baja();
-                case 3 -> crudClientes.modificacion();
-                case 4 -> crudClientes.listarClientes();
-                case 5 -> crudActividades.alta();
-                case 6 -> crudActividades.modificacion();
-                case 7 -> {
-                    if (admin.getNivelAcceso() == 2) crudActividades.baja();
-                    else System.out.println("No tiene permiso para eliminar actividades.");
-                }
-                case 8 -> crudActividades.listarActividades();
-                case 9 -> crudTurnos.alta();
-                case 10 -> {
-                    if (admin.getNivelAcceso() == 2) crudTurnos.cancelar();
-                    else System.out.println("Solo los administradores de nivel 2 pueden cancelar turnos ajenos.");
-                }
-                case 11 -> crudTurnos.listarTurnos();
-                case 0 -> System.out.println("Cerrando sesión de administrador...");
-                default -> System.out.println("Opción inválida.");
+                case 1:
+                    crudClientes.alta();
+                    break;
+                case 2:
+                    crudClientes.baja();
+                    break;
+                case 3:
+                    crudClientes.modificacion();
+                    break;
+                case 4:
+                    crudClientes.listarClientes();
+                    break;
+                case 5:
+                    crudActividades.alta();
+                    break;
+                case 6:
+                    crudActividades.modificacion();
+                    break;
+                case 7:
+                    if (admin.getNivelAcceso() == 2) {
+                        crudActividades.baja();
+                    } else {
+                        System.out.println("No tiene permiso para eliminar actividades.");
+                    }
+                    break;
+                case 8:
+                    crudActividades.listarActividades();
+                    break;
+                case 9:
+                    crudTurnos.alta();
+                    break;
+                case 10:
+                    if (admin.getNivelAcceso() == 2) {
+                        crudTurnos.cancelar();
+                    } else {
+                        System.out.println("Solo los administradores de nivel 2 pueden cancelar turnos ajenos.");
+                    }
+                    break;
+                case 11:
+                    crudTurnos.listarTurnos();
+                    break;
+                case 0:
+                    System.out.println("Cerrando sesión de administrador...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
             }
         } while (opcion != 0);
     }
@@ -171,16 +199,26 @@ public class SistemaDeTurnos {
             opcion = linea.isEmpty() ? -1 : Integer.parseInt(linea);
 
             switch (opcion) {
-                case 1 -> listarTurnosDelCliente(cliente.getDni());
-                case 2 -> crudTurnos.alta();
-                case 3 -> cancelarTurnoDelCliente(cliente);
-                case 4 -> {
+                case 1:
+                    listarTurnosDelCliente(cliente.getDni());
+                    break;
+                case 2:
+                    crudTurnos.alta();
+                    break;
+                case 3:
+                    cancelarTurnoDelCliente(cliente);
+                    break;
+                case 4:
                     cliente.setEsActivo(false);
                     System.out.println("Cuenta desactivada. Se cerrará sesión.");
                     opcion = 0;
-                }
-                case 0 -> System.out.println("Cerrando sesión...");
-                default -> System.out.println("Opción inválida.");
+                    break;
+                case 0:
+                    System.out.println("Cerrando sesión...");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+                    break;
             }
         } while (opcion != 0);
     }
@@ -194,7 +232,9 @@ public class SistemaDeTurnos {
                 hayTurnos = true;
             }
         }
-        if (!hayTurnos) System.out.println("No tenés turnos registrados.");
+        if (!hayTurnos) {
+            System.out.println("No tenés turnos registrados.");
+        }
     }
 
     private void cancelarTurnoDelCliente(Cliente cliente) {
