@@ -17,17 +17,15 @@ public class GestorTurnos extends GestorGenerico<Turno> {
     public GestorClientes gestor;
     public GestorActividades gestorActividades;
 
-    // Constructor: carga automáticamente los turnos existentes del JSON
+
     public GestorTurnos(GestorClientes gestorClientes, GestorActividades gestorActividades) {
         super();
         this.gestor = gestorClientes;
         this.gestorActividades = gestorActividades;
 
-        // Cargar los turnos existentes desde el archivo al iniciar
         try {
             this.lista = gestionJSONTurnos.leerTurnos();
 
-            // Sincronizar el contador de IDs con el valor más alto encontrado
             int maxId = 0;
             for (int i = 0; i < this.lista.size(); i++) {
                 Turno t = this.lista.get(i);
@@ -38,12 +36,13 @@ public class GestorTurnos extends GestorGenerico<Turno> {
             IdGenerator.setTurnoCount(maxId);
 
         } catch (Exception e) {
-            System.out.println("⚠️ No se pudieron cargar turnos previos: " + e.getMessage());
+            System.out.println("No se pudieron cargar turnos previos: " + e.getMessage());
             this.lista = new ArrayList<>();
         }
     }
 
-    // Método reservar turno
+
+
     public void reservarTurno(String nombreActividad, LocalDateTime fechaHora, String dniCliente)
             throws TurnoOcupadoException, NoHayTurnosDisponiblesException {
 
@@ -56,7 +55,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         boolean clienteYaReservo = false;
 
         for (Turno t : lista) {
-            // Proteger contra dniCliente null en el turno
+
             if (t.getFechaHora() != null && t.getIdActividad() == actividad.getIdActividad()
                     && t.getFechaHora().equals(fechaHora)) {
                 cantidadActual++;
@@ -77,17 +76,19 @@ public class GestorTurnos extends GestorGenerico<Turno> {
             throw new TurnoOcupadoException("El cliente ya tiene un turno en ese horario.");
         }
 
-        // ID único y persistente con IdGenerator
+
         int idTurno = IdGenerator.generarId("turnos");
         Turno nuevoTurno = new Turno(idTurno, fechaHora, EstadoTurno.RESERVADO, dniCliente, actividad.getIdActividad());
         agregar(nuevoTurno);
 
-        // Guardar solo el nuevo turno en el archivo (sin sobrescribir todo)
+
         gestionJSONTurnos.grabarTurno(nuevoTurno);
 
         System.out.println("Turno reservado con éxito para " + dniCliente +
                 " en la actividad: " + actividad.getTipoActividad() + " (" + fechaHora + ")");
     }
+
+
 
     // Método modificar turno (tipo de actividad o fecha)
     public boolean modificarTurno(int idTurno, int nuevoIdActividad, LocalDateTime nuevaFechaHora) {
@@ -118,7 +119,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         }
     }
 
-    // ✅ Método turnos por cliente
+    // Metodo filtrado turnos por cliente
     public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
         List<Turno> turnosCliente = new ArrayList<>();
 

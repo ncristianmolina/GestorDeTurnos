@@ -20,19 +20,11 @@ public class CrudClientes {
         this.gestor = gestor;
     }
 
-    // ALTA DE CLIENTE
+
     public void alta() {
-        System.out.println("=== ALTA DE CLIENTE ===");
+        System.out.println(" ALTA DE CLIENTE ");
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
-
-        //validacion dni
-        try {
-            Long.parseLong(dni);
-        } catch (NumberFormatException e) {
-            System.out.println("Error: el DNI debe contener solo números.");
-            return;
-        }
 
         // chequeo duplicado
         for (Persona p : gestor.getLista()) {
@@ -60,7 +52,7 @@ public class CrudClientes {
 
         try {
             gestor.agregarPersona(nuevo);
-            // persistimos la lista actualizada
+
             gestionJSONPersona.grabarPersonas(gestor.getLista());
             System.out.println("Cliente agregado y guardado correctamente.");
         } catch (DNIClienteDuplicadoException e) {
@@ -68,9 +60,9 @@ public class CrudClientes {
         }
     }
 
-    // BAJA
+
     public void baja() {
-        System.out.println("=== BAJA LÓGICA DE CLIENTE ===");
+        System.out.println(" BAJA LÓGICA DE CLIENTE ");
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
@@ -89,9 +81,9 @@ public class CrudClientes {
         }
     }
 
-    // MODIFICACIÓN
+
     public void modificacion() {
-        System.out.println("=== MODIFICAR CLIENTE ===");
+        System.out.println(" MODIFICAR CLIENTE ");
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
@@ -120,9 +112,9 @@ public class CrudClientes {
         }
     }
 
-    // LISTAR
+
     public void listarClientes() {
-        System.out.println("=== LISTA DE CLIENTES ===");
+        System.out.println(" LISTA DE CLIENTES ");
         if (gestor.getLista().isEmpty()) {
             System.out.println("No hay clientes registrados.");
             return;
@@ -140,4 +132,5 @@ public class CrudClientes {
     public GestorClientes getGestor() {
         return gestor;
     }
+
 }

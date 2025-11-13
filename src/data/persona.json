@@ -213,14 +213,45 @@
     "email": "c"
   },
   {
-    "password": "julieta",
+    "password": "root",
     "tipo": "CLIENTE",
-    "apellido": "Requena",
+    "apellido": "prueba",
     "esActivo": true,
-    "usuario": "julieta.requena",
-    "telefono": "22366843558",
-    "nombre": "Julieta",
-    "dni": "41306756",
-    "email": "julirequena15@gmail.com"
+    "usuario": "pruebaroot",
+    "nombre": "cristin",
+    "dni": "20587426",
+    "email": "prueba@testes.com"
+  },
+  {
+    "password": "prueba",
+    "tipo": "CLIENTE",
+    "apellido": "prueba",
+    "esActivo": true,
+    "usuario": "prueba",
+    "nombre": "prueba",
+    "dni": "30596321",
+    "email": "prueba@prueba"
+  },
+  {
+    "nivelAcceso": 0,
+    "password": "soyadmin",
+    "tipo": "ADMIN",
+    "apellido": "Martínez",
+    "esActivo": true,
+    "usuario": "lucas.martinez",
+    "nombre": "Lucas",
+    "dni": "31782910",
+    "email": "lucas@admin.com"
+  },
+  {
+    "nivelAcceso": 2,
+    "password": "root",
+    "tipo": "ADMIN",
+    "apellido": "root",
+    "esActivo": true,
+    "usuario": "root",
+    "nombre": "pruebaAdmin",
+    "dni": "43863123",
+    "email": "root@pruebaAdmin"
   }
 ]}

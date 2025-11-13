@@ -13,7 +13,7 @@ public class gestionJSONTurnos {
 
     private static final String ARCHIVO = "src/data/turnos.json";
 
-    // --- Convierte un JSONObject a Turno ---
+
     public static Turno mapeoTurno(JSONObject jTurno) {
         Turno turno = new Turno();
         try {
@@ -29,7 +29,7 @@ public class gestionJSONTurnos {
         return turno;
     }
 
-    // --- Convierte JSONArray a lista ---
+
     public static List<Turno> mapeoTurnos(JSONArray jTurnos) {
         List<Turno> turnos = new ArrayList<>();
         for (int i = 0; i < jTurnos.length(); i++) {
@@ -43,7 +43,7 @@ public class gestionJSONTurnos {
         return turnos;
     }
 
-    // --- Lee todos los turnos existentes ---
+
     public static List<Turno> leerTurnos() {
         File file = new File(ARCHIVO);
         if (!file.exists()) {
@@ -68,7 +68,7 @@ public class gestionJSONTurnos {
 
             List<Turno> turnos = mapeoTurnos(jTurnos);
 
-            // sincroniza ID generator
+           //sincroniza ID Generator
             int maxId = 0;
             for (Turno t : turnos) {
                 if (t.getIdTurno() > maxId) maxId = t.getIdTurno();
@@ -86,14 +86,14 @@ public class gestionJSONTurnos {
         }
     }
 
-    // --- Agrega un turno sin borrar los anteriores ---
+
     public static void grabarTurno(Turno nuevoTurno) {
         List<Turno> turnos = leerTurnos();
         turnos.add(nuevoTurno);
         grabarTurnos(turnos);
     }
 
-    // --- Graba toda la lista (tu estilo, sin errores de put/toString) ---
+
     public static void grabarTurnos(List<Turno> turnos) {
         JSONArray jTurnos = new JSONArray();
 
@@ -118,7 +118,7 @@ public class gestionJSONTurnos {
             throw new RuntimeException("Error al generar JSON raíz: " + e.getMessage());
         }
 
-        // --- Escritura idéntica a tu formato original ---
+
         try (FileWriter fw = new FileWriter(ARCHIVO)) {
             try {
                 fw.write(root.toString(2)); // indentación de 2 espacios

@@ -20,7 +20,7 @@ public class Cliente extends Persona {
         setTipo(TipoUsuario.CLIENTE);
     }
 
-    // Constructor usado por JSON
+
     public Cliente(String dni, String nombre, String apellido, String email, String password,
                    String usuario, String tipo, boolean esActivo) {
         super(dni, nombre, apellido, email, password, usuario, esActivo);

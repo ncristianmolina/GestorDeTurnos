@@ -82,9 +82,16 @@
   },
   {
     "estado": "RESERVADO",
-    "idActividad": 11,
-    "fechaHora": "2025-12-03T14:00",
-    "dniCliente": "41306756",
+    "idActividad": 10,
+    "fechaHora": "2025-11-11T11:11",
+    "dniCliente": "20849211",
     "idTurno": 13
+  },
+  {
+    "estado": "RESERVADO",
+    "idActividad": 8,
+    "fechaHora": "2025-12-13T10:00",
+    "dniCliente": "34772218",
+    "idTurno": 14
   }
 ]}
