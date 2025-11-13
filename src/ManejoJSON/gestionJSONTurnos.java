@@ -2,11 +2,13 @@ package ManejoJSON;
 
 import Modelos.Turno;
 import org.json.*;
-        import java.io.*;
-        import java.time.LocalDateTime;
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import Enum.EstadoTurno;
+import Util.IdGenerator;
+
 
 public class gestionJSONTurnos {
 
@@ -46,35 +48,59 @@ public class gestionJSONTurnos {
     }
 
     public static List<Turno> leerTurnos() {
-        String archivo = "src/data/turnos.json";
         try {
-            JSONObject json = new JSONObject(JSONUtiles.leer(archivo));
+            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
             JSONArray jTurnos = json.getJSONArray("turnos");
-            return mapeoTurnos(jTurnos);
+            List<Turno> turnos = mapeoTurnos(jTurnos);
+
+            // --- Sincronizar IdGenerator con el último ID más alto encontrado ---
+            int maxId = 0;
+            for (Turno t : turnos) {
+                if (t.getIdTurno() > maxId) {
+                    maxId = t.getIdTurno();
+                }
+            }
+            IdGenerator.setTurnoCount(maxId);
+
+            return turnos;
         } catch (JSONException e) {
             throw new RuntimeException("Error al leer turnos: " + e.getMessage());
         }
     }
 
-
+    // ---- persistencia correcta: escribimos un objeto raíz { "turnos": [ ... ] } ----
     public static void grabarTurnos(List<Turno> turnos) {
         JSONArray jTurnos = new JSONArray();
 
         for (Turno t : turnos) {
             JSONObject jT = new JSONObject();
             try {
-                jT.accumulate("idTurno", t.getIdTurno());
-                jT.accumulate("fechaHora", t.getFechaHora().toString()); // formato ISO
-                jT.accumulate("estado", t.getEstado().name()); // enum → String
-                jT.accumulate("dniCliente", t.getDniCliente());
-                jT.accumulate("idActividad", t.getIdActividad());
+                jT.put("idTurno", t.getIdTurno());
+                jT.put("fechaHora", t.getFechaHora().toString()); // formato ISO
+                jT.put("estado", t.getEstado().name()); // enum → String
+                jT.put("dniCliente", t.getDniCliente());
+                jT.put("idActividad", t.getIdActividad());
                 jTurnos.put(jT);
             } catch (JSONException e) {
                 throw new RuntimeException("Error al convertir turno a JSON: " + e.getMessage());
             }
         }
 
-        JSONUtiles.grabarTurnos(jTurnos);
-    }
+        JSONObject root = new JSONObject();
+        try {
+            root.put("turnos", jTurnos);
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al generar JSON raíz de turnos: " + e.getMessage());
+        }
 
+        try (FileWriter fw = new FileWriter(ARCHIVO)) {
+            try {
+                fw.write(root.toString(2)); // indentado = 2
+            } catch (JSONException e) {
+                throw new RuntimeException("Error al convertir JSON a texto (turnos): " + e.getMessage());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al grabar turnos.json: " + e.getMessage(), e);
+        }
+    }
 }

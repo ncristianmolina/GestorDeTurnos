@@ -3,10 +3,9 @@ package Gestores;
 import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
 import Modelos.Actividad;
-import Modelos.Cliente;
-import Modelos.Persona;
 import Modelos.Turno;
 import Enum.EstadoTurno;
+import Util.IdGenerator;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         this.gestorActividades = gestorActividades;
     }
 
-
     // Método reservar turno
     public void reservarTurno(String nombreActividad, LocalDateTime fechaHora, String dniCliente)
             throws TurnoOcupadoException, NoHayTurnosDisponiblesException {
@@ -36,37 +34,37 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         boolean clienteYaReservo = false;
 
         for (Turno t : lista) {
-            if (t.getIdActividad() == actividad.getIdActividad() &&
-                    t.getFechaHora().equals(fechaHora)) {
+            // proteger contra dniCliente null en el turno
+            if (t.getFechaHora() != null && t.getIdActividad() == actividad.getIdActividad()
+                    && t.getFechaHora().equals(fechaHora)) {
                 cantidadActual++;
             }
 
-            if (t.getDniCliente().equals(dniCliente) &&
-                    t.getFechaHora().equals(fechaHora)) {
+            if (t.getDniCliente() != null && t.getDniCliente().equalsIgnoreCase(dniCliente)
+                    && t.getFechaHora() != null && t.getFechaHora().equals(fechaHora)) {
                 clienteYaReservo = true;
             }
         }
 
         if (cantidadActual >= actividad.getCapacidadMaxima()) {
             throw new NoHayTurnosDisponiblesException(
-                    "No hay turnos disponibles para " + actividad + " en " + fechaHora);
+                    "No hay turnos disponibles para " + actividad.getTipoActividad() + " en " + fechaHora);
         }
 
         if (clienteYaReservo) {
             throw new TurnoOcupadoException("El cliente ya tiene un turno en ese horario.");
         }
 
-        int idTurno = lista.size() + 1;
+        // ID único y persistente con IdGenerator
+        int idTurno = IdGenerator.generarId("turnos");
         Turno nuevoTurno = new Turno(idTurno, fechaHora, EstadoTurno.RESERVADO, dniCliente, actividad.getIdActividad());
         agregar(nuevoTurno);
 
         System.out.println("Turno reservado con éxito para " + dniCliente +
-                " en la actividad: " + nombreActividad + " (" + fechaHora + ")");
+                " en la actividad: " + actividad.getTipoActividad() + " (" + fechaHora + ")");
     }
 
-
-
-    // Metodo modificar turno (tipo de actividad o fecha)
+    // Método modificar turno (tipo de actividad o fecha)
     public boolean modificarTurno(int idTurno, int nuevoIdActividad, LocalDateTime nuevaFechaHora) {
         for (Turno t : lista) {
             if (t.getIdTurno() == idTurno) {
@@ -80,9 +78,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         return false;
     }
 
-
-    //Metodo mostrar todos los turnos cargados
-
+    // Mostrar todos los turnos cargados
     public void mostrarTurnos() {
         if (lista.isEmpty()) {
             System.out.println("No hay turnos registrados.");
@@ -97,17 +93,12 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         }
     }
 
-
-
-    //Método turnos por cliente
-
-    /**Recorre el array de turnos y los filtra por el dni del cliente **/
-
+    // Método turnos por cliente
     public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
         List<Turno> turnosCliente = new ArrayList<>();
 
         for (Turno t : turnos) {
-            if (t.getDniCliente().equals(dniClienteBuscado)) {
+            if (t.getDniCliente() != null && t.getDniCliente().equals(dniClienteBuscado)) {
                 turnosCliente.add(t);
             }
         }
@@ -115,24 +106,18 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         return turnosCliente;
     }
 
-
-    //Método para listar las actividades que todavía tienen turnos disponibles.
-    // Se considera que una actividad está disponible si la cantidad de turnos
-    // reservados es menor que su capacidad máxima.
-
+    // Método para listar las actividades con turnos disponibles
     public static List<Actividad> listarTurnosDisponibles(List<Actividad> actividades, List<Turno> turnos) {
         List<Actividad> disponibles = new ArrayList<>();
 
         for (Actividad a : actividades) {
             int contador = 0;
 
-
             for (Turno t : turnos) {
                 if (t.getIdActividad() == a.getIdActividad()) {
                     contador++;
                 }
             }
-
 
             if (contador < a.getCapacidadMaxima()) {
                 disponibles.add(a);
@@ -141,6 +126,4 @@ public class GestorTurnos extends GestorGenerico<Turno> {
 
         return disponibles;
     }
-
-
 }

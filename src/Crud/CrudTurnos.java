@@ -3,6 +3,7 @@ package Crud;
 import Gestores.GestorTurnos;
 import Gestores.GestorActividades;
 import Gestores.GestorClientes;
+import ManejoJSON.gestionJSONTurnos;
 import Modelos.Turno;
 import Modelos.Actividad;
 import Modelos.Cliente;
@@ -72,9 +73,13 @@ public class CrudTurnos {
 
         try {
             gestorTurnos.reservarTurno(actividad.getTipoActividad(), fechaHora, dni);
+            // persistimos TURNOS después de reservar
+            gestionJSONTurnos.grabarTurnos(gestorTurnos.getLista());
             System.out.println("Turno reservado correctamente.");
         } catch (TurnoOcupadoException | NoHayTurnosDisponiblesException e) {
             System.out.println("Error al reservar: " + e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("Error al guardar turnos: " + e.getMessage());
         }
     }
 
@@ -86,7 +91,13 @@ public class CrudTurnos {
         for (Turno t : gestorTurnos.getLista()) {
             if (t.getIdTurno() == id) {
                 t.cancelar();
-                System.out.println("Turno cancelado correctamente.");
+                try {
+                    // persistimos TURNOS después de cancelar
+                    gestionJSONTurnos.grabarTurnos(gestorTurnos.getLista());
+                    System.out.println("Turno cancelado correctamente.");
+                } catch (RuntimeException e) {
+                    System.out.println("Turno cancelado en memoria pero falló al guardar: " + e.getMessage());
+                }
                 return;
             }
         }
