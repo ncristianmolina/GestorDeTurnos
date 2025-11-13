@@ -31,7 +31,7 @@ public class CrudClientes {
             Long.parseLong(dni);
         } catch (NumberFormatException e) {
             System.out.println("Error: el DNI debe contener solo números.");
-            return null; // sale del método
+            return null;
         }
 
         // chequeo duplicado
@@ -54,6 +54,14 @@ public class CrudClientes {
         String password = scanner.nextLine();
         System.out.print("Teléfono: ");
         String telefono = scanner.nextLine();
+
+        //validacion telefono
+        try {
+            Long.parseLong(telefono);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: el teléfono debe contener solo números.");
+            return null;
+        }
 
         Cliente nuevo = new Cliente(dni, nombre, apellido, email, password, usuario, true, telefono);
         nuevo.setTipo(TipoUsuario.CLIENTE);
