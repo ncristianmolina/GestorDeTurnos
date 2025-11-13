@@ -108,7 +108,17 @@ public class CrudTurnos {
     }
 
     // getter del gestor si necesitás usarlo externamente
+    // Getters para acceder a los gestores desde otras clases (menús y sistema principal)
+
     public GestorTurnos getGestorTurnos() {
         return gestorTurnos;
+    }
+
+    public GestorActividades getGestorActividades() {
+        return gestorActividades;
+    }
+
+    public GestorClientes getGestorClientes() {
+        return gestorClientes;
     }
 }

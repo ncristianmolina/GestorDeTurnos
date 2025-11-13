@@ -10,7 +10,6 @@ import Modelos.Persona;
 import Modelos.Actividad;
 import ManejoJSON.gestionJSONActividad;
 import ManejoJSON.gestionJSONPersona;
-import ManejoJSON.gestionJSONTurnos;
 import Modelos.Turno;
 import java.util.List;
 import java.util.Scanner;
@@ -29,17 +28,13 @@ public class SistemaDeTurnos {
     private final CrudTurnos crudTurnos;
 
     public SistemaDeTurnos() {
-        // crear gestores
         this.gestorActividades = new GestorActividades();
         this.gestorClientes = new GestorClientes();
         this.gestorTurnos = new GestorTurnos(gestorClientes, gestorActividades);
 
-        // intentar cargar datos desde JSON si existen los mappers
         cargarActividadesDesdeJson();
         cargarPersonasDesdeJson();
-        //cargarTurnosDesdeJson(); // <-- AÑADIDO: carga los turnos en memoria al arrancar
 
-        // crear CRUDs que usan los gestores
         this.crudActividades = new CrudActividades(scanner, gestorActividades);
         this.crudClientes = new CrudClientes(scanner, gestorClientes);
         this.crudTurnos = new CrudTurnos(scanner, gestorTurnos, gestorClientes, gestorActividades);
@@ -69,30 +64,34 @@ public class SistemaDeTurnos {
         }
     }
 
-    // NUEVO: carga turnos desde src/data/turnos.json
-    private void cargarTurnosDesdeJson() {
-        try {
-            List<Turno> turnos = gestionJSONTurnos.leerTurnos();
-            if (turnos != null && !turnos.isEmpty()) {
-                gestorTurnos.getLista().addAll(turnos);
-                System.out.println("Cargados " + turnos.size() + " turnos desde JSON.");
+    public void iniciar() {
+        int opcion;
+        do {
+            System.out.println("\n=== SISTEMA DE TURNOS ===");
+            System.out.println("1 - Iniciar sesión");
+            System.out.println("2 - Registrarse");
+            System.out.println("3 - Salir");
+            System.out.print("Opción: ");
+
+            String linea = scanner.nextLine().trim();
+            opcion = linea.isEmpty() ? -1 : Integer.parseInt(linea);
+
+            switch (opcion) {
+                case 1 -> iniciarSesion();
+                case 2 -> registrarYEntrarCliente();
+                case 3 -> System.out.println("Saliendo del sistema...");
+                default -> System.out.println("Opción inválida.");
             }
-        } catch (Exception e) {
-            System.out.println("No se pudieron cargar turnos desde JSON: " + e.getMessage());
-        }
+        } while (opcion != 3);
     }
 
-    // Inicio principal: login simplificado por usuario/clave desde persona.json
-    public void iniciar() {
-        System.out.println("=== SISTEMA DE TURNOS ===");
-
-        // loop principal: pedir usuario/clave y entrar en menu adecuado
+    private void iniciarSesion() {
+        System.out.println("\n=== INICIO DE SESIÓN ===");
         System.out.print("Usuario: ");
         String usuario = scanner.nextLine().trim();
         System.out.print("Contraseña: ");
         String pass = scanner.nextLine().trim();
 
-        // busco persona en gestorClientes (que tiene la lista cargada desde JSON)
         Persona encontrado = null;
         for (Persona p : gestorClientes.getLista()) {
             if (p.getUsuario() != null && p.getUsuario().equalsIgnoreCase(usuario)) {
@@ -114,7 +113,6 @@ public class SistemaDeTurnos {
             return;
         }
 
-        // si es admin o cliente según tipo
         if (encontrado.getTipo() != null && encontrado.getTipo().name().equalsIgnoreCase("ADMIN")) {
             int nivelAcceso = 1;
             if (encontrado instanceof Modelos.Administrador) {
@@ -123,13 +121,35 @@ public class SistemaDeTurnos {
             MenuAdmin menuAdmin = new MenuAdmin(scanner, crudClientes, crudActividades, crudTurnos, nivelAcceso);
             menuAdmin.run();
         } else {
-            // cliente: crear menú cliente
-            MenuCliente menuCliente = new MenuCliente(scanner, crudTurnos, (Modelos.Cliente) encontrado);
+            MenuCliente menuCliente = new MenuCliente(scanner, crudTurnos, (Modelos.Cliente) encontrado, gestorTurnos, gestorActividades);
             menuCliente.run();
         }
     }
 
-    // Menús internos
+    private void registrarYEntrarCliente() {
+        System.out.println("\n=== REGISTRO DE NUEVO CLIENTE ===");
+        crudClientes.alta();
+
+        if (gestorClientes.getLista().isEmpty()) {
+            System.out.println("No se pudo crear el cliente.");
+            return;
+        }
+
+        Modelos.Cliente nuevo = null;
+        for (Persona p : gestorClientes.getLista()) {
+            if (p instanceof Modelos.Cliente)
+                nuevo = (Modelos.Cliente) p;
+        }
+
+        if (nuevo != null) {
+            System.out.println("\nRegistro exitoso. Iniciando sesión automáticamente...");
+            MenuCliente menuCliente = new MenuCliente(scanner, crudTurnos, nuevo, gestorTurnos, gestorActividades);
+            menuCliente.run();
+        } else {
+            System.out.println("Error: no se encontró el nuevo cliente para iniciar sesión.");
+        }
+    }
+
     private static class MenuAdmin {
         private final Scanner scanner;
         private final CrudClientes crudClientes;
@@ -160,6 +180,9 @@ public class SistemaDeTurnos {
                 System.out.println("9 - Reservar turno");
                 System.out.println("10 - Cancelar turno");
                 System.out.println("11 - Listar turnos");
+                System.out.println("12 - Filtrar turnos por cliente");
+                System.out.println("13 - Ver actividades con turnos disponibles");
+                System.out.println("14 - Crear nuevo administrador");
                 System.out.println("0 - Cerrar sesión");
                 System.out.print("Opción: ");
                 String linea = scanner.nextLine().trim();
@@ -183,6 +206,76 @@ public class SistemaDeTurnos {
                         else System.out.println("Solo administradores nivel 2 pueden cancelar turnos ajenos.");
                     }
                     case 11 -> crudTurnos.listarTurnos();
+                    case 12 -> {
+                        System.out.print("Ingrese DNI del cliente: ");
+                        String dni = scanner.nextLine();
+                        List<Turno> turnosCliente = GestorTurnos.turnosPorCliente(crudTurnos.getGestorTurnos().getLista(), dni);
+                        if (turnosCliente.isEmpty()) {
+                            System.out.println("No se encontraron turnos para el cliente con DNI: " + dni);
+                        } else {
+                            System.out.println("Turnos del cliente " + dni + ":");
+                            for (Turno t : turnosCliente) {
+                                System.out.println("ID: " + t.getIdTurno() + " | Fecha: " + t.getFechaHora() + " | Estado: " + t.getEstado());
+                            }
+                        }
+                    }
+                    case 13 -> {
+                        List<Actividad> disponibles = GestorTurnos.listarTurnosDisponibles(
+                                crudTurnos.getGestorActividades().getLista(),
+                                crudTurnos.getGestorTurnos().getLista()
+                        );
+                        if (disponibles.isEmpty()) {
+                            System.out.println("No hay actividades con cupos disponibles.");
+                        } else {
+                            System.out.println("Actividades con turnos disponibles:");
+                            for (Actividad a : disponibles) {
+                                System.out.println(a.getTipoActividad() + " (Cupos totales: " + a.getCapacidadMaxima() + ")");
+                            }
+                        }
+                    }
+
+                    // 🔹 CAMBIO: ahora cualquier admin puede crear otros admins
+                    case 14 -> {
+                        System.out.println("\n=== CREAR NUEVO ADMINISTRADOR ===");
+                        System.out.print("DNI: ");
+                        String dni = scanner.nextLine().trim();
+                        System.out.print("Nombre: ");
+                        String nombre = scanner.nextLine().trim();
+                        System.out.print("Apellido: ");
+                        String apellido = scanner.nextLine().trim();
+                        System.out.print("Email: ");
+                        String email = scanner.nextLine().trim();
+                        System.out.print("Usuario: ");
+                        String usuario = scanner.nextLine().trim();
+                        System.out.print("Contraseña: ");
+                        String password = scanner.nextLine().trim();
+
+                        int nivel;
+                        try {
+                            System.out.print("Nivel de acceso (1 o 2): ");
+                            nivel = Integer.parseInt(scanner.nextLine());
+                            if (nivel != 1 && nivel != 2) {
+                                System.out.println("Error: el nivel de acceso debe ser 1 o 2.");
+                                break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: ingrese un número válido (1 o 2).");
+                            break;
+                        }
+
+                        Modelos.Administrador nuevoAdmin = new Modelos.Administrador(
+                                dni, nombre, apellido, email, password, usuario, true, nivel
+                        );
+
+                        crudClientes.getGestor().getLista().add(nuevoAdmin);
+                        try {
+                            ManejoJSON.gestionJSONPersona.grabarPersonas(crudClientes.getGestor().getLista());
+                            System.out.println("Administrador creado exitosamente.");
+                        } catch (Exception e) {
+                            System.out.println("Administrador creado, pero falló al guardar en JSON: " + e.getMessage());
+                        }
+                    }
+
                     case 0 -> System.out.println("Cerrando sesión de administrador...");
                     default -> System.out.println("Opción inválida.");
                 }
@@ -195,11 +288,15 @@ public class SistemaDeTurnos {
         private final Scanner scanner;
         private final CrudTurnos crudTurnos;
         private final Modelos.Cliente cliente;
+        private final GestorTurnos gestorTurnos;
+        private final GestorActividades gestorActividades;
 
-        MenuCliente(Scanner scanner, CrudTurnos ct, Modelos.Cliente cliente) {
+        MenuCliente(Scanner scanner, CrudTurnos ct, Modelos.Cliente cliente, GestorTurnos gestorTurnos, GestorActividades gestorActividades) {
             this.scanner = scanner;
             this.crudTurnos = ct;
             this.cliente = cliente;
+            this.gestorTurnos = gestorTurnos;
+            this.gestorActividades = gestorActividades;
         }
 
         void run() {
@@ -210,6 +307,7 @@ public class SistemaDeTurnos {
                 System.out.println("2 - Reservar turno");
                 System.out.println("3 - Cancelar mi turno");
                 System.out.println("4 - Desactivar mi cuenta");
+                System.out.println("5 - Ver actividades con turnos disponibles");
                 System.out.println("0 - Cerrar sesión");
                 System.out.print("Opción: ");
                 String linea = scanner.nextLine().trim();
@@ -232,8 +330,7 @@ public class SistemaDeTurnos {
 
                         for (Turno t : crudTurnos.getGestorTurnos().getLista()) {
                             if (t.getIdTurno() == id && t.getDniCliente() != null && t.getDniCliente().equalsIgnoreCase(cliente.getDni())) {
-                                t.setEstado(EstadoTurno.CANCELADO); // si usás la import, reemplazar por EstadoTurno.CANCELADO
-                                // Persistir inmediatamente
+                                t.setEstado(EstadoTurno.CANCELADO);
                                 try {
                                     ManejoJSON.gestionJSONTurnos.grabarTurnos(crudTurnos.getGestorTurnos().getLista());
                                 } catch (Exception ex) {
@@ -249,12 +346,25 @@ public class SistemaDeTurnos {
                     }
                     case 4 -> {
                         cliente.setEsActivo(false);
-                        // persistir personas también
                         try {
                             ManejoJSON.gestionJSONPersona.grabarPersonas(crudTurnos.getGestorTurnos().gestor.getLista());
                         } catch (Exception ignored) {}
                         System.out.println("Cuenta desactivada.");
                         opcion = 0;
+                    }
+                    case 5 -> {
+                        List<Actividad> disponibles = GestorTurnos.listarTurnosDisponibles(
+                                gestorActividades.getLista(),
+                                gestorTurnos.getLista()
+                        );
+                        if (disponibles.isEmpty()) {
+                            System.out.println("No hay actividades con turnos disponibles.");
+                        } else {
+                            System.out.println("Actividades con cupos disponibles:");
+                            for (Actividad a : disponibles) {
+                                System.out.println(a.getTipoActividad() + " (Cupos totales: " + a.getCapacidadMaxima() + ")");
+                            }
+                        }
                     }
                     case 0 -> System.out.println("Cerrando sesión...");
                     default -> System.out.println("Opción inválida.");
@@ -264,7 +374,6 @@ public class SistemaDeTurnos {
         }
     }
 
-    // getters
     public CrudClientes getCrudClientes() { return crudClientes; }
     public CrudActividades getCrudActividades() { return crudActividades; }
     public CrudTurnos getCrudTurnos() { return crudTurnos; }

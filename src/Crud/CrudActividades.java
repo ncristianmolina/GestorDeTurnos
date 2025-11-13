@@ -16,7 +16,7 @@ public class CrudActividades {
     }
 
     public void alta() {
-        System.out.println("=== ALTA DE ACTIVIDAD ===");
+        System.out.println("ALTA DE ACTIVIDAD ");
         System.out.print("Capacidad máxima: ");
         int capacidad = Integer.parseInt(scanner.nextLine());
         System.out.print("Precio: ");
@@ -49,7 +49,7 @@ public class CrudActividades {
     }
 
     public void modificacion() {
-        System.out.println("=== MODIFICAR ACTIVIDAD ===");
+        System.out.println("MODIFICAR ACTIVIDAD");
         System.out.print("Ingrese ID de la actividad: ");
         int id = Integer.parseInt(scanner.nextLine());
         Actividad a = gestor.buscarPorId(id);
@@ -75,7 +75,7 @@ public class CrudActividades {
     }
 
     public void listarActividades() {
-        System.out.println("=== LISTA DE ACTIVIDADES ===");
+        System.out.println("LISTA DE ACTIVIDADES");
         if (gestor.getLista().isEmpty()) {
             System.out.println("No hay actividades registradas.");
             return;
@@ -86,6 +86,8 @@ public class CrudActividades {
     }
 
     // getter para uso externo si hace falta
+    // Getters para acceder a los gestores desde otras clases (menús y sistema principal)
+
     public GestorActividades getGestor() {
         return gestor;
     }
