@@ -54,7 +54,7 @@ public class CrudClientes {
             gestor.agregarPersona(nuevo);
             // persistimos la lista actualizada
             gestionJSONPersona.grabarPersonas(gestor.getLista());
-            System.out.println("✔ Cliente agregado y guardado correctamente.");
+            System.out.println("Cliente agregado y guardado correctamente.");
         } catch (DNIClienteDuplicadoException e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -72,7 +72,7 @@ public class CrudClientes {
                 Cliente c = (Cliente) p;
                 c.setEsActivo(false);
                 gestionJSONPersona.grabarPersonas(gestor.getLista());
-                System.out.println("✔ Cliente desactivado y guardado correctamente.");
+                System.out.println("Cliente desactivado y guardado correctamente.");
             } else {
                 System.out.println("La persona encontrada no es un cliente.");
             }
@@ -106,7 +106,7 @@ public class CrudClientes {
 
             // persistimos los cambios
             gestionJSONPersona.grabarPersonas(gestor.getLista());
-            System.out.println("✔ Cliente modificado y guardado correctamente.");
+            System.out.println("Cliente modificado y guardado correctamente.");
         } catch (ClienteNoEncontradoException e) {
             System.out.println(e.getMessage());
         }

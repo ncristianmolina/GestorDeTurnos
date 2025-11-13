@@ -51,7 +51,7 @@ public class gestionJSONTurnos {
         }
 
         try {
-            // ✅ Leemos el archivo como texto, no como JSONTokener
+
             StringBuilder contenido = new StringBuilder();
             try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO))) {
                 String linea;
