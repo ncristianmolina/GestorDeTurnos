@@ -1,6 +1,7 @@
 package Crud;
 
 import Gestores.GestorClientes;
+import ManejoJSON.gestionJSONPersona;
 import Modelos.Cliente;
 import Modelos.Persona;
 import Enum.TipoUsuario;
@@ -19,12 +20,13 @@ public class CrudClientes {
         this.gestor = gestor;
     }
 
+    // === ALTA DE CLIENTE ===
     public void alta() {
         System.out.println("=== ALTA DE CLIENTE ===");
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
 
-        // chequeo duplicado en la lista (lista contiene Persona)
+        // chequeo duplicado
         for (Persona p : gestor.getLista()) {
             if (p.getDni() != null && p.getDni().equalsIgnoreCase(dni)) {
                 System.out.println("Ya existe un cliente con ese DNI.");
@@ -49,24 +51,28 @@ public class CrudClientes {
         nuevo.setTipo(TipoUsuario.CLIENTE);
 
         try {
-            gestor.agregarPersona(nuevo); // valida y agrega a la lista de Personas
-            System.out.println("✔ Cliente agregado correctamente.");
+            gestor.agregarPersona(nuevo);
+            // persistimos la lista actualizada
+            gestionJSONPersona.grabarPersonas(gestor.getLista());
+            System.out.println("✔ Cliente agregado y guardado correctamente.");
         } catch (DNIClienteDuplicadoException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
+    // === BAJA LÓGICA ===
     public void baja() {
         System.out.println("=== BAJA LÓGICA DE CLIENTE ===");
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
         try {
-            Persona p = gestor.buscarPorDni(dni); // devuelve Persona
+            Persona p = gestor.buscarPorDni(dni);
             if (p instanceof Cliente) {
                 Cliente c = (Cliente) p;
                 c.setEsActivo(false);
-                System.out.println("✔ Cliente desactivado correctamente.");
+                gestionJSONPersona.grabarPersonas(gestor.getLista());
+                System.out.println("✔ Cliente desactivado y guardado correctamente.");
             } else {
                 System.out.println("La persona encontrada no es un cliente.");
             }
@@ -75,6 +81,7 @@ public class CrudClientes {
         }
     }
 
+    // === MODIFICACIÓN ===
     public void modificacion() {
         System.out.println("=== MODIFICAR CLIENTE ===");
         System.out.print("Ingrese DNI del cliente: ");
@@ -97,12 +104,15 @@ public class CrudClientes {
             String tel = scanner.nextLine();
             if (!tel.isBlank()) c.setTelefono(tel);
 
-            System.out.println("✔ Cliente modificado correctamente.");
+            // persistimos los cambios
+            gestionJSONPersona.grabarPersonas(gestor.getLista());
+            System.out.println("✔ Cliente modificado y guardado correctamente.");
         } catch (ClienteNoEncontradoException e) {
             System.out.println(e.getMessage());
         }
     }
 
+    // === LISTAR ===
     public void listarClientes() {
         System.out.println("=== LISTA DE CLIENTES ===");
         if (gestor.getLista().isEmpty()) {

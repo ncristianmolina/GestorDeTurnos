@@ -1,15 +1,11 @@
 package ManejoJSON;
 
-import Gestores.GestorClientes;
 import Modelos.Administrador;
 import Modelos.Cliente;
 import Modelos.Persona;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
-import org.json.JSONTokener;
-
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +15,8 @@ public class gestionJSONPersona {
 
     private static final String ARCHIVO = "src/data/persona.json";
 
+    // Mapea un objeto JSON a una instancia de Persona (Administrador o Cliente)
     public static Persona mapeoPersona(JSONObject jPersona) {
-        Persona persona;
-
         try {
             String dni = jPersona.getString("dni");
             String nombre = jPersona.getString("nombre");
@@ -33,18 +28,17 @@ public class gestionJSONPersona {
             boolean esActivo = jPersona.getBoolean("esActivo");
 
             if (tipo.equalsIgnoreCase("ADMIN")) {
-                persona = new Administrador(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
+                return new Administrador(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
             } else {
-                persona = new Cliente(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
+                return new Cliente(dni, nombre, apellido, email, password, usuario, tipo, esActivo);
             }
 
         } catch (JSONException e) {
             throw new RuntimeException("Error al mapear persona: " + e.getMessage());
         }
-
-        return persona;
     }
 
+    // Convierte un JSONArray a una lista de objetos Persona
     public static List<Persona> mapeoPersonas(JSONArray jPersonas) {
         List<Persona> personas = new ArrayList<>();
 
@@ -54,17 +48,16 @@ public class gestionJSONPersona {
                 Persona persona = mapeoPersona(jPers);
                 personas.add(persona);
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error al mapear lista de personas: " + e.getMessage());
             }
         }
-
         return personas;
     }
 
+    // Lee el archivo JSON y devuelve la lista de personas
     public static List<Persona> leerPersonas() {
-        String archivo = "src/data/persona.json";
         try {
-            JSONObject json = new JSONObject(JSONUtiles.leer(archivo));
+            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
             JSONArray jPersonas = json.getJSONArray("persona");
             return mapeoPersonas(jPersonas);
         } catch (JSONException e) {
@@ -72,28 +65,56 @@ public class gestionJSONPersona {
         }
     }
 
-
+    // Guarda la lista de personas en el archivo persona.json
     public static void grabarPersonas(List<Persona> personas) {
         JSONArray jPersonas = new JSONArray();
 
+        // Recorremos la lista y la convertimos a JSON
         for (Persona p : personas) {
-            JSONObject jPers = new JSONObject();
             try {
-                jPers.accumulate("dni", p.getDni());
-                jPers.accumulate("nombre", p.getNombre());
-                jPers.accumulate("apellido", p.getApellido());
-                jPers.accumulate("email", p.getEmail());
-                jPers.accumulate("password", p.getPassword());
-                jPers.accumulate("usuario", p.getUsuario());
-                jPers.accumulate("tipo", p.getTipo());
-                jPers.accumulate("esActivo", p.getEsActivo());
+                JSONObject jPers = new JSONObject();
+                jPers.put("dni", p.getDni());
+                jPers.put("nombre", p.getNombre());
+                jPers.put("apellido", p.getApellido());
+                jPers.put("email", p.getEmail());
+                jPers.put("password", p.getPassword());
+                jPers.put("usuario", p.getUsuario());
+                jPers.put("tipo", p.getTipo() != null ? p.getTipo().name() : JSONObject.NULL);
+                jPers.put("esActivo", p.getEsActivo());
+
+                if (p instanceof Cliente c) {
+                    if (c.getTelefono() != null) jPers.put("telefono", c.getTelefono());
+                }
+                if (p instanceof Administrador a) {
+                    jPers.put("nivelAcceso", a.getNivelAcceso());
+                }
+
                 jPersonas.put(jPers);
+
             } catch (JSONException e) {
                 throw new RuntimeException("Error al convertir persona a JSON: " + e.getMessage());
             }
         }
 
-        JSONUtiles.grabarPersonas(jPersonas);
-    }
+        // Creamos el objeto raíz
+        JSONObject root;
+        try {
+            root = new JSONObject();
+            root.put("persona", jPersonas);
+        } catch (JSONException e) {
+            throw new RuntimeException("Error al generar JSON raíz: " + e.getMessage());
+        }
 
+        // Grabamos el archivo
+        try (FileWriter fw = new FileWriter(ARCHIVO)) {
+            try {
+                fw.write(root.toString(2)); // 2 = indentación
+            } catch (JSONException e) {
+                // Capturamos el JSONException que lanza toString(2)
+                throw new RuntimeException("Error al convertir JSON a texto: " + e.getMessage());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al grabar persona.json: " + e.getMessage(), e);
+        }
+    }
 }

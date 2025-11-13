@@ -28,7 +28,7 @@ public class JSONUtiles {
     }
 
     public static void grabarPersonas(JSONArray array) {
-        grabar(array, "src/data/clientes.json");
+        grabar(array, "src/data/persona.json");
     }
 
     public static void grabarTurnos(JSONArray array) {
