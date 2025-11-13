@@ -103,7 +103,7 @@ public class CrudClientes {
     public void modificacion() {
         System.out.println(" MODIFICAR CLIENTE ");
         System.out.print("Ingrese DNI del cliente: ");
-        String dni = scanner.nextLine();
+        String dni = scanner.nextLine().trim();
 
         try {
             Persona p = gestor.buscarPorDni(dni);
