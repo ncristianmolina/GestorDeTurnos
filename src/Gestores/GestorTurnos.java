@@ -2,10 +2,12 @@ package Gestores;
 
 import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
+import ManejoJSON.gestionJSONTurnos; // ✅ Import del manejador JSON
 import Modelos.Actividad;
 import Modelos.Turno;
 import Enum.EstadoTurno;
 import Util.IdGenerator;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +17,22 @@ public class GestorTurnos extends GestorGenerico<Turno> {
     public GestorClientes gestor;
     public GestorActividades gestorActividades;
 
+    // ✅ Constructor: carga automáticamente los turnos existentes del JSON
     public GestorTurnos(GestorClientes gestorClientes, GestorActividades gestorActividades) {
         super();
         this.gestor = gestorClientes;
         this.gestorActividades = gestorActividades;
+
+        // Cargar los turnos existentes desde el archivo al iniciar
+        try {
+            this.lista = gestionJSONTurnos.leerTurnos();
+        } catch (Exception e) {
+            System.out.println("⚠️ No se pudieron cargar turnos previos: " + e.getMessage());
+            this.lista = new ArrayList<>();
+        }
     }
 
-    // Método reservar turno
+    // ✅ Método reservar turno
     public void reservarTurno(String nombreActividad, LocalDateTime fechaHora, String dniCliente)
             throws TurnoOcupadoException, NoHayTurnosDisponiblesException {
 
@@ -59,6 +70,9 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         int idTurno = IdGenerator.generarId("turnos");
         Turno nuevoTurno = new Turno(idTurno, fechaHora, EstadoTurno.RESERVADO, dniCliente, actividad.getIdActividad());
         agregar(nuevoTurno);
+
+        // ✅ Guardar solo el nuevo turno en el archivo (sin sobrescribir todo)
+        gestionJSONTurnos.grabarTurno(nuevoTurno);
 
         System.out.println("Turno reservado con éxito para " + dniCliente +
                 " en la actividad: " + actividad.getTipoActividad() + " (" + fechaHora + ")");

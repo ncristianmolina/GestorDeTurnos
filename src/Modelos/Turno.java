@@ -11,9 +11,6 @@ public class Turno implements Reservable {
     private String dniCliente;
     private int idActividad;
 
-    public Turno(int idTurno, LocalDateTime fechaHora, String estado, String dniCliente, int idActividad) {
-    }
-
     public Turno() {
     }
 
@@ -25,34 +22,20 @@ public class Turno implements Reservable {
         this.idActividad = idActividad;
     }
 
+    public int getIdTurno() { return idTurno; }
+    public void setIdTurno(int idTurno) { this.idTurno = idTurno; }
 
-    public int getIdTurno() {
-        return idTurno; }
-
-    public void setIdTurno(int idTurno) {
-        this.idTurno = idTurno; }
-
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
-    }
+    public LocalDateTime getFechaHora() { return fechaHora; }
+    public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
 
     public EstadoTurno getEstado() { return estado; }
     public void setEstado(EstadoTurno estado) { this.estado = estado; }
 
     public String getDniCliente() { return dniCliente; }
-    public void setDniCliente(Cliente cliente) { this.dniCliente = dniCliente; }
+    public void setDniCliente(String dniCliente) { this.dniCliente = dniCliente; }
 
-    public int getIdActividad() {
-        return idActividad;
-    }
-
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
-    }
+    public int getIdActividad() { return idActividad; }
+    public void setIdActividad(int idActividad) { this.idActividad = idActividad; }
 
     @Override
     public void reservar() {
@@ -63,8 +46,4 @@ public class Turno implements Reservable {
     public void cancelar() {
         this.estado = EstadoTurno.CANCELADO;
     }
-
-    public void setDniCliente(String dniCliente) {
-    }
 }
-

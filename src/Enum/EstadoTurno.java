@@ -4,5 +4,6 @@ public enum EstadoTurno {
     PENDIENTE,
     CANCELADO,
     REPROGRAMADO,
+    DISPONIBLE,
     RESERVADO;
 }
