@@ -2,7 +2,7 @@ package Gestores;
 
 import Exceptions.NoHayTurnosDisponiblesException;
 import Exceptions.TurnoOcupadoException;
-import ManejoJSON.gestionJSONTurnos; // ✅ Import del manejador JSON
+import ManejoJSON.gestionJSONTurnos;
 import Modelos.Actividad;
 import Modelos.Turno;
 import Enum.EstadoTurno;
@@ -26,6 +26,17 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         // Cargar los turnos existentes desde el archivo al iniciar
         try {
             this.lista = gestionJSONTurnos.leerTurnos();
+
+            // ✅ Sincronizar el contador de IDs con el valor más alto encontrado
+            int maxId = 0;
+            for (int i = 0; i < this.lista.size(); i++) {
+                Turno t = this.lista.get(i);
+                if (t.getIdTurno() > maxId) {
+                    maxId = t.getIdTurno();
+                }
+            }
+            IdGenerator.setTurnoCount(maxId);
+
         } catch (Exception e) {
             System.out.println("⚠️ No se pudieron cargar turnos previos: " + e.getMessage());
             this.lista = new ArrayList<>();
@@ -45,7 +56,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         boolean clienteYaReservo = false;
 
         for (Turno t : lista) {
-            // proteger contra dniCliente null en el turno
+            // Proteger contra dniCliente null en el turno
             if (t.getFechaHora() != null && t.getIdActividad() == actividad.getIdActividad()
                     && t.getFechaHora().equals(fechaHora)) {
                 cantidadActual++;
@@ -78,7 +89,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
                 " en la actividad: " + actividad.getTipoActividad() + " (" + fechaHora + ")");
     }
 
-    // Método modificar turno (tipo de actividad o fecha)
+    // ✅ Método modificar turno (tipo de actividad o fecha)
     public boolean modificarTurno(int idTurno, int nuevoIdActividad, LocalDateTime nuevaFechaHora) {
         for (Turno t : lista) {
             if (t.getIdTurno() == idTurno) {
@@ -92,7 +103,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         return false;
     }
 
-    // Mostrar todos los turnos cargados
+    // ✅ Mostrar todos los turnos cargados
     public void mostrarTurnos() {
         if (lista.isEmpty()) {
             System.out.println("No hay turnos registrados.");
@@ -107,7 +118,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         }
     }
 
-    // Método turnos por cliente
+    // ✅ Método turnos por cliente
     public static List<Turno> turnosPorCliente(List<Turno> turnos, String dniClienteBuscado) {
         List<Turno> turnosCliente = new ArrayList<>();
 
@@ -120,7 +131,7 @@ public class GestorTurnos extends GestorGenerico<Turno> {
         return turnosCliente;
     }
 
-    // Método para listar las actividades con turnos disponibles
+    // ✅ Método para listar las actividades con turnos disponibles
     public static List<Actividad> listarTurnosDisponibles(List<Actividad> actividades, List<Turno> turnos) {
         List<Actividad> disponibles = new ArrayList<>();
 

@@ -73,8 +73,6 @@ public class CrudTurnos {
 
         try {
             gestorTurnos.reservarTurno(actividad.getTipoActividad(), fechaHora, dni);
-            // persistimos TURNOS después de reservar
-            gestionJSONTurnos.grabarTurnos(gestorTurnos.getLista());
             System.out.println("Turno reservado correctamente.");
         } catch (TurnoOcupadoException | NoHayTurnosDisponiblesException e) {
             System.out.println("Error al reservar: " + e.getMessage());
