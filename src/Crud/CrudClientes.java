@@ -21,7 +21,7 @@ public class CrudClientes {
     }
 
 
-    public void alta() {
+    public Cliente alta() {
         System.out.println(" ALTA DE CLIENTE ");
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
@@ -31,14 +31,14 @@ public class CrudClientes {
             Long.parseLong(dni);
         } catch (NumberFormatException e) {
             System.out.println("Error: el DNI debe contener solo números.");
-            return; // sale del método
+            return null; // sale del método
         }
 
         // chequeo duplicado
         for (Persona p : gestor.getLista()) {
             if (p.getDni() != null && p.getDni().equalsIgnoreCase(dni)) {
                 System.out.println("Ya existe un cliente con ese DNI.");
-                return;
+                return null;
             }
         }
 
@@ -63,8 +63,10 @@ public class CrudClientes {
 
             gestionJSONPersona.grabarPersonas(gestor.getLista());
             System.out.println("Cliente agregado y guardado correctamente.");
+            return nuevo;
         } catch (DNIClienteDuplicadoException e) {
             System.out.println("Error: " + e.getMessage());
+            return null;
         }
     }
 

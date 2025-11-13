@@ -136,26 +136,16 @@ public class SistemaDeTurnos {
 
     private void registrarYEntrarCliente() {
         System.out.println("\n REGISTRO DE NUEVO CLIENTE ");
-        crudClientes.alta();
+        Modelos.Cliente nuevo = crudClientes.alta();
 
-        if (gestorClientes.getLista().isEmpty()) {
-            System.out.println("No se pudo crear el cliente.");
+        if (nuevo == null) {
+            System.out.println("No se pudo crear el cliente. Registro cancelado.");
             return;
         }
 
-        Modelos.Cliente nuevo = null;
-        for (Persona p : gestorClientes.getLista()) {
-            if (p instanceof Modelos.Cliente)
-                nuevo = (Modelos.Cliente) p;
-        }
-
-        if (nuevo != null) {
-            System.out.println("\nRegistro exitoso. Iniciando sesión automáticamente...");
-            MenuCliente menuCliente = new MenuCliente(scanner, crudTurnos, nuevo, gestorTurnos, gestorActividades);
-            menuCliente.run();
-        } else {
-            System.out.println("Error: no se encontró el nuevo cliente para iniciar sesión.");
-        }
+        System.out.println("\nRegistro exitoso. Iniciando sesión automáticamente...");
+        MenuCliente menuCliente = new MenuCliente(scanner, crudTurnos, nuevo, gestorTurnos, gestorActividades);
+        menuCliente.run();
     }
 
     private static class MenuAdmin {
