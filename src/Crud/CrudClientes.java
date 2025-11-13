@@ -26,6 +26,14 @@ public class CrudClientes {
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
 
+        //validacion dni
+        try {
+            Long.parseLong(dni);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: el DNI debe contener solo números.");
+            return; // sale del método
+        }
+
         // chequeo duplicado
         for (Persona p : gestor.getLista()) {
             if (p.getDni() != null && p.getDni().equalsIgnoreCase(dni)) {
