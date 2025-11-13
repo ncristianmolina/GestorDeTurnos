@@ -4,8 +4,19 @@ UML: https://app.creately.com/d/wKDIZLaA9H2/edit
 
 Proyecto: Gestor de Turnos
 
-Este proyecto fue desarrollado como parte del aprendizaje en programación orientada a objetos con Java.
-La idea principal es tener un sistema que permita gestionar turnos donde los clientes puedan reservar, cancelar o ver sus turnos, y los administradores puedan manejar tanto los clientes como las actividades que ofrece el sistema.
+Integrantes del grupo:
+Luciana Hamade
+Julieta Requena
+Adela Santillan Garcia
+Cristian Molina
+
+Este proyecto fue desarrollado como entrega final de la materia Programación II - Tecnicatura Universitaria en Programación UTN.
+El mismo tiene el propósito de aplicar los principios fundamentales de la programación orientada a objetos utilizando el lenguaje Java,
+tales como herencia, encapsulamiento, polimorfismo y manejo de excepciones, además de incorporar persistencia de datos mediante archivos JSON.
+
+La idea principal es tener un sistema que permita gestionar turnos de manera eficiente, ofreciendo funciones tanto para clientes como para administradores. 
+Los clientes pueden reservar, cancelar o ver sus turnos, mientras que los administradores pueden manejar tanto los clientes como las actividades que ofrece el sistema.
+
 
 Funcionalidades principales:
 
@@ -25,7 +36,7 @@ Estructura del proyecto:
 
 Modelos: contiene las clases principales como Persona, Cliente, Administrador, Actividad y Turno.
 
-Gestores: manejan la lógica del negocio y las validaciones del sistema.
+Gestores: manejan la lógica y las validaciones del sistema.
 
 Crud: se encarga de las operaciones que realiza el usuario desde consola como alta, baja o modificación.
 
@@ -51,13 +62,6 @@ persona.json
 actividades.json
 
 turnos.json
+
 Cada vez que se realiza una operación de alta, baja o modificación, los cambios se guardan automáticamente.
 
-Objetivo:
-El objetivo del proyecto es aplicar los conceptos de programación orientada a objetos, manejo de excepciones, herencia, encapsulamiento y persistencia de datos usando JSON, simulando el funcionamiento de un sistema real de gestión de turnos.
-
-Integrantes del grupo:
-Luciana Hamade
-Julieta Requena
-Adelan Santillan
-Cristian Molina

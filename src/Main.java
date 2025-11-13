@@ -8,4 +8,4 @@ public class Main {
 
         sistema.iniciar();
     }
-}1
+}
