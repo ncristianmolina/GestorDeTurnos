@@ -208,9 +208,19 @@
     "apellido": "molina",
     "esActivo": true,
     "usuario": "criimolina",
-    "telefono": "2",
     "nombre": "cristian",
     "dni": "41332780",
     "email": "c"
+  },
+  {
+    "password": "julieta",
+    "tipo": "CLIENTE",
+    "apellido": "Requena",
+    "esActivo": true,
+    "usuario": "julieta.requena",
+    "telefono": "22366843558",
+    "nombre": "Julieta",
+    "dni": "41306756",
+    "email": "julirequena15@gmail.com"
   }
 ]}

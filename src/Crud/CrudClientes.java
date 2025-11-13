@@ -20,11 +20,19 @@ public class CrudClientes {
         this.gestor = gestor;
     }
 
-    // === ALTA DE CLIENTE ===
+    // ALTA DE CLIENTE
     public void alta() {
         System.out.println("=== ALTA DE CLIENTE ===");
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
+
+        //validacion dni
+        try {
+            Long.parseLong(dni);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: el DNI debe contener solo números.");
+            return;
+        }
 
         // chequeo duplicado
         for (Persona p : gestor.getLista()) {
@@ -60,7 +68,7 @@ public class CrudClientes {
         }
     }
 
-    // === BAJA LÓGICA ===
+    // BAJA
     public void baja() {
         System.out.println("=== BAJA LÓGICA DE CLIENTE ===");
         System.out.print("Ingrese DNI del cliente: ");
@@ -81,7 +89,7 @@ public class CrudClientes {
         }
     }
 
-    // === MODIFICACIÓN ===
+    // MODIFICACIÓN
     public void modificacion() {
         System.out.println("=== MODIFICAR CLIENTE ===");
         System.out.print("Ingrese DNI del cliente: ");
@@ -112,7 +120,7 @@ public class CrudClientes {
         }
     }
 
-    // === LISTAR ===
+    // LISTAR
     public void listarClientes() {
         System.out.println("=== LISTA DE CLIENTES ===");
         if (gestor.getLista().isEmpty()) {
