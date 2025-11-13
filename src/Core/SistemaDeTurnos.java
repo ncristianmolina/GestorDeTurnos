@@ -37,7 +37,7 @@ public class SistemaDeTurnos {
         // intentar cargar datos desde JSON si existen los mappers
         cargarActividadesDesdeJson();
         cargarPersonasDesdeJson();
-        cargarTurnosDesdeJson(); // <-- AÑADIDO: carga los turnos en memoria al arrancar
+        //cargarTurnosDesdeJson(); // <-- AÑADIDO: carga los turnos en memoria al arrancar
 
         // crear CRUDs que usan los gestores
         this.crudActividades = new CrudActividades(scanner, gestorActividades);

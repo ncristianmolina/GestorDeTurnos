@@ -79,5 +79,12 @@
     "fechaHora": "2025-11-20T10:00",
     "dniCliente": "41332780",
     "idTurno": 12
+  },
+  {
+    "estado": "RESERVADO",
+    "idActividad": 10,
+    "fechaHora": "2025-11-11T11:11",
+    "dniCliente": "20849211",
+    "idTurno": 13
   }
 ]}
