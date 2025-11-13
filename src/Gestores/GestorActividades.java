@@ -36,12 +36,7 @@ public class GestorActividades extends GestorGenerico<Actividad> {
     }
 
 
-    /*Método actividades con más inscriptos*/
-
-    /**Recorre el listado de actividades  y el de turnos
-     * en turnos detecta los id de las actividades  y los suma**/
-
-
+    //Método filtrado actividades con más inscriptos
 
     public static List<Actividad> actividadesConMasInscriptos(List<Actividad> actividades, List<Turno> turnos) {
 

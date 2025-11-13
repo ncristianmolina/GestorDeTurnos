@@ -31,11 +31,11 @@ public class CrudTurnos {
     }
 
     public void alta() {
-        System.out.println("=== RESERVAR TURNO ===");
+        System.out.println(" RESERVAR TURNO ");
         System.out.print("DNI del cliente: ");
         String dni = scanner.nextLine();
 
-        // validar cliente activo
+
         Cliente cliente = null;
         try {
             cliente = (Cliente) gestorClientes.buscarPorDni(dni);
@@ -48,7 +48,7 @@ public class CrudTurnos {
             return;
         }
 
-        // mostrar actividades y seleccionar por ID
+
         System.out.println("Actividades:");
         for (Actividad a : gestorActividades.getLista()) {
             System.out.println(a.getIdActividad() + " - " + a.getTipoActividad() + " (cap: " + a.getCapacidadMaxima() + ")");
@@ -82,7 +82,7 @@ public class CrudTurnos {
     }
 
     public void cancelar() {
-        System.out.println("=== CANCELAR TURNO ===");
+        System.out.println(" CANCELAR TURNO ");
         System.out.print("Ingrese ID del turno: ");
         int id = Integer.parseInt(scanner.nextLine());
 
@@ -90,7 +90,7 @@ public class CrudTurnos {
             if (t.getIdTurno() == id) {
                 t.cancelar();
                 try {
-                    // persistimos TURNOS después de cancelar
+
                     gestionJSONTurnos.grabarTurnos(gestorTurnos.getLista());
                     System.out.println("Turno cancelado correctamente.");
                 } catch (RuntimeException e) {
@@ -103,12 +103,9 @@ public class CrudTurnos {
     }
 
     public void listarTurnos() {
-        System.out.println("=== LISTA DE TURNOS ===");
+        System.out.println(" LISTA DE TURNOS ");
         gestorTurnos.mostrarTurnos();
     }
-
-    // getter del gestor si necesitás usarlo externamente
-    // Getters para acceder a los gestores desde otras clases (menús y sistema principal)
 
     public GestorTurnos getGestorTurnos() {
         return gestorTurnos;

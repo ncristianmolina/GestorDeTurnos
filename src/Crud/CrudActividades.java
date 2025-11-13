@@ -36,7 +36,7 @@ public class CrudActividades {
     }
 
     public void baja() {
-        System.out.println("=== ELIMINAR ACTIVIDAD ===");
+        System.out.println(" ELIMINAR ACTIVIDAD ");
         System.out.print("Ingrese ID de la actividad a eliminar: ");
         int id = Integer.parseInt(scanner.nextLine());
         Actividad encontrada = gestor.buscarPorId(id);
@@ -85,8 +85,7 @@ public class CrudActividades {
         }
     }
 
-    // getter para uso externo si hace falta
-    // Getters para acceder a los gestores desde otras clases (menús y sistema principal)
+
 
     public GestorActividades getGestor() {
         return gestor;

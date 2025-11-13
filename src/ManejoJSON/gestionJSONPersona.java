@@ -15,7 +15,7 @@ public class gestionJSONPersona {
 
     private static final String ARCHIVO = "src/data/persona.json";
 
-    // Mapea un objeto JSON a una instancia de Persona (Administrador o Cliente)
+
     public static Persona mapeoPersona(JSONObject jPersona) {
         try {
             String dni = jPersona.getString("dni");
@@ -38,7 +38,7 @@ public class gestionJSONPersona {
         }
     }
 
-    // Convierte un JSONArray a una lista de objetos Persona
+
     public static List<Persona> mapeoPersonas(JSONArray jPersonas) {
         List<Persona> personas = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public class gestionJSONPersona {
         return personas;
     }
 
-    // Lee el archivo JSON y devuelve la lista de personas
+
     public static List<Persona> leerPersonas() {
         try {
             JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
@@ -65,11 +65,11 @@ public class gestionJSONPersona {
         }
     }
 
-    // Guarda la lista de personas en el archivo persona.json
+
     public static void grabarPersonas(List<Persona> personas) {
         JSONArray jPersonas = new JSONArray();
 
-        // Recorremos la lista y la convertimos a JSON
+
         for (Persona p : personas) {
             try {
                 JSONObject jPers = new JSONObject();
@@ -96,7 +96,7 @@ public class gestionJSONPersona {
             }
         }
 
-        // Creamos el objeto raíz
+
         JSONObject root;
         try {
             root = new JSONObject();
@@ -105,7 +105,7 @@ public class gestionJSONPersona {
             throw new RuntimeException("Error al generar JSON raíz: " + e.getMessage());
         }
 
-        // Grabamos el archivo
+
         try (FileWriter fw = new FileWriter(ARCHIVO)) {
             try {
                 fw.write(root.toString(2)); // 2 = indentación

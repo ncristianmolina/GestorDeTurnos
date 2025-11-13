@@ -67,7 +67,7 @@ public class SistemaDeTurnos {
     public void iniciar() {
         int opcion;
         do {
-            System.out.println("\n=== SISTEMA DE TURNOS ===");
+            System.out.println("\n SISTEMA DE TURNOS");
             System.out.println("1 - Iniciar sesión");
             System.out.println("2 - Registrarse");
             System.out.println("3 - Salir");
@@ -94,7 +94,7 @@ public class SistemaDeTurnos {
     }
 
     private void iniciarSesion() {
-        System.out.println("\n=== INICIO DE SESIÓN ===");
+        System.out.println("\n INICIO DE SESIÓN ");
         System.out.print("Usuario: ");
         String usuario = scanner.nextLine().trim();
         System.out.print("Contraseña: ");
@@ -135,7 +135,7 @@ public class SistemaDeTurnos {
     }
 
     private void registrarYEntrarCliente() {
-        System.out.println("\n=== REGISTRO DE NUEVO CLIENTE ===");
+        System.out.println("\n REGISTRO DE NUEVO CLIENTE ");
         crudClientes.alta();
 
         if (gestorClientes.getLista().isEmpty()) {
@@ -176,7 +176,7 @@ public class SistemaDeTurnos {
         void run() {
             int opcion;
             do {
-                System.out.println("\n=== PANEL ADMINISTRADOR (Nivel " + nivelAcceso + ") ===");
+                System.out.println("\n PANEL ADMINISTRADOR (Nivel " + nivelAcceso + ") ");
                 System.out.println("1 - Alta de cliente");
                 System.out.println("2 - Baja de cliente");
                 System.out.println("3 - Modificación de cliente");
@@ -262,7 +262,7 @@ public class SistemaDeTurnos {
                         }
                         break;
                     case 14:
-                        System.out.println("\n=== CREAR NUEVO ADMINISTRADOR ===");
+                        System.out.println("\n CREAR NUEVO ADMINISTRADOR ");
                         System.out.print("DNI: ");
                         String dniA = scanner.nextLine().trim();
                         System.out.print("Nombre: ");
@@ -302,7 +302,7 @@ public class SistemaDeTurnos {
                         }
                         break;
                     case 15:
-                        System.out.println("\n=== ACTIVIDADES CON MÁS INSCRIPTOS ===");
+                        System.out.println("\n ACTIVIDADES CON MÁS INSCRIPTOS ");
                         List<Actividad> masInscriptos = GestorActividades.actividadesConMasInscriptos(
                                 crudTurnos.getGestorActividades().getLista(),
                                 crudTurnos.getGestorTurnos().getLista()
@@ -349,7 +349,7 @@ public class SistemaDeTurnos {
         void run() {
             int opcion;
             do {
-                System.out.println("\n=== PANEL CLIENTE (" + cliente.getNombre() + " " + cliente.getApellido() + ") ===");
+                System.out.println("\n PANEL CLIENTE (" + cliente.getNombre() + " " + cliente.getApellido() + ") ");
                 System.out.println("1 - Ver mis turnos");
                 System.out.println("2 - Reservar turno");
                 System.out.println("3 - Cancelar mi turno");
