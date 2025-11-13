@@ -2,5 +2,5 @@ package Enum;
 
 public enum TipoUsuario {
     ADMINISTRADOR,
-    CLIENTE;
+    CLIENTE, ADMIN;
 }

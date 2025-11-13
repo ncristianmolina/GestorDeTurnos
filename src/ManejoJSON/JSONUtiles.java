@@ -24,15 +24,15 @@ public class JSONUtiles {
     }
 
     public static void grabarActividades(JSONArray array) {
-        grabar(array, "actividades.json");
+        grabar(array, "src/data/actividades.json");
     }
 
     public static void grabarPersonas(JSONArray array) {
-        grabar(array, "clientes.json");
+        grabar(array, "src/data/clientes.json");
     }
 
     public static void grabarTurnos(JSONArray array) {
-        grabar(array, "turnos.json");
+        grabar(array, "src/data/turnos.json");
     }
 
 
@@ -47,29 +47,4 @@ public class JSONUtiles {
         return tokener;
     }
 
-
-
-    public static JSONArray leerActividades() {
-        try {
-            return new JSONArray(leer("actividades.json"));
-        } catch (JSONException e) {
-            return new JSONArray();
-        }
-    }
-
-    public static JSONArray leerClientes() {
-        try {
-            return new JSONArray(leer("clientes.json"));
-        } catch (JSONException e) {
-            return new JSONArray();
-        }
-    }
-
-    public static JSONArray leerTurnos() {
-        try {
-            return new JSONArray(leer("turnos.json"));
-        } catch (JSONException e) {
-            return new JSONArray();
-        }
-    }
 }

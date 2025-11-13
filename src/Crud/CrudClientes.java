@@ -1,17 +1,22 @@
 package Crud;
 
-import Gestores.GestorGenerico;
+import Gestores.GestorClientes;
 import Modelos.Cliente;
+import Modelos.Persona;
 import Enum.TipoUsuario;
+import Exceptions.DNIClienteDuplicadoException;
+import Exceptions.ClienteNoEncontradoException;
+
 import java.util.Scanner;
 
-public class CrudClientes extends GestorGenerico<Cliente> {
+public class CrudClientes {
 
     private final Scanner scanner;
+    private final GestorClientes gestor;
 
-    public CrudClientes(Scanner scanner) {
-        super();
+    public CrudClientes(Scanner scanner, GestorClientes gestor) {
         this.scanner = scanner;
+        this.gestor = gestor;
     }
 
     public void alta() {
@@ -19,8 +24,9 @@ public class CrudClientes extends GestorGenerico<Cliente> {
         System.out.print("DNI: ");
         String dni = scanner.nextLine();
 
-        for (Cliente c : lista) {
-            if (c.getDni().equalsIgnoreCase(dni)) {
+        // chequeo duplicado en la lista (lista contiene Persona)
+        for (Persona p : gestor.getLista()) {
+            if (p.getDni() != null && p.getDni().equalsIgnoreCase(dni)) {
                 System.out.println("Ya existe un cliente con ese DNI.");
                 return;
             }
@@ -41,9 +47,13 @@ public class CrudClientes extends GestorGenerico<Cliente> {
 
         Cliente nuevo = new Cliente(dni, nombre, apellido, email, password, usuario, true, telefono);
         nuevo.setTipo(TipoUsuario.CLIENTE);
-        agregarPersona(nuevo);
 
-        System.out.println("✔ Cliente agregado correctamente.");
+        try {
+            gestor.agregarPersona(nuevo); // valida y agrega a la lista de Personas
+            System.out.println("✔ Cliente agregado correctamente.");
+        } catch (DNIClienteDuplicadoException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     public void baja() {
@@ -51,15 +61,18 @@ public class CrudClientes extends GestorGenerico<Cliente> {
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
-        for (Cliente c : lista) {
-            if (c.getDni().equalsIgnoreCase(dni)) {
+        try {
+            Persona p = gestor.buscarPorDni(dni); // devuelve Persona
+            if (p instanceof Cliente) {
+                Cliente c = (Cliente) p;
                 c.setEsActivo(false);
                 System.out.println("✔ Cliente desactivado correctamente.");
-                return;
+            } else {
+                System.out.println("La persona encontrada no es un cliente.");
             }
+        } catch (ClienteNoEncontradoException e) {
+            System.out.println(e.getMessage());
         }
-
-        System.out.println("⚠ No se encontró un cliente con ese DNI.");
     }
 
     public void modificacion() {
@@ -67,28 +80,46 @@ public class CrudClientes extends GestorGenerico<Cliente> {
         System.out.print("Ingrese DNI del cliente: ");
         String dni = scanner.nextLine();
 
-        for (Cliente c : lista) {
-            if (c.getDni().equalsIgnoreCase(dni)) {
-                System.out.print("Nuevo email (ENTER para mantener): ");
-                String email = scanner.nextLine();
-                if (!email.isBlank()) c.setEmail(email);
-
-                System.out.print("Nuevo teléfono (ENTER para mantener): ");
-                String tel = scanner.nextLine();
-                if (!tel.isBlank()) c.setTelefono(tel);
-
-                System.out.println("✔ Cliente modificado correctamente.");
+        try {
+            Persona p = gestor.buscarPorDni(dni);
+            if (!(p instanceof Cliente)) {
+                System.out.println("La persona encontrada no es un cliente.");
                 return;
             }
+
+            Cliente c = (Cliente) p;
+
+            System.out.print("Nuevo email (ENTER para mantener): ");
+            String email = scanner.nextLine();
+            if (!email.isBlank()) c.setEmail(email);
+
+            System.out.print("Nuevo teléfono (ENTER para mantener): ");
+            String tel = scanner.nextLine();
+            if (!tel.isBlank()) c.setTelefono(tel);
+
+            System.out.println("✔ Cliente modificado correctamente.");
+        } catch (ClienteNoEncontradoException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("⚠ Cliente no encontrado.");
     }
 
     public void listarClientes() {
         System.out.println("=== LISTA DE CLIENTES ===");
-        for (Cliente c : lista) {
-            System.out.println(c.getDni() + " - " + c.getNombre() + " " + c.getApellido() +
-                    " - Activo: " + c.getEsActivo());
+        if (gestor.getLista().isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+            return;
         }
+
+        for (Persona p : gestor.getLista()) {
+            if (p instanceof Cliente) {
+                Cliente c = (Cliente) p;
+                System.out.println(c.getDni() + " - " + c.getNombre() + " " + c.getApellido()
+                        + " - Activo: " + c.getEsActivo());
+            }
+        }
+    }
+
+    public GestorClientes getGestor() {
+        return gestor;
     }
 }

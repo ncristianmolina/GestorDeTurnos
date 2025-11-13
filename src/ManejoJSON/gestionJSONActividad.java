@@ -44,15 +44,17 @@ public class gestionJSONActividad {
          return actividades;
     }
 
-    public static List <Actividad> leerActividades(){
-        try{
-            JSONObject json= new JSONObject(JSONUtiles.leer("actividades.json"));
-            JSONArray jActvidades = json.getJSONArray("actividades");
-            return mapeoActividades(jActvidades);
+    public static List<Actividad> leerActividades(){
+        String archivo = "src/data/actividad.json";
+        try {
+            JSONObject json = new JSONObject(JSONUtiles.leer(archivo));
+            JSONArray jActividades = json.getJSONArray("actividades");
+            return mapeoActividades(jActividades);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     public static void grabarActividades(List<Actividad> actividades) {
         JSONArray jActividades = new JSONArray();

@@ -10,7 +10,7 @@ import Enum.EstadoTurno;
 
 public class gestionJSONTurnos {
 
-    private static final String ARCHIVO = "turnos.json";
+    private static final String ARCHIVO = "src/data/turnos.json";
 
     public static Turno mapeoTurno(JSONObject jTurno) {
         Turno turno = new Turno();
@@ -46,14 +46,16 @@ public class gestionJSONTurnos {
     }
 
     public static List<Turno> leerTurnos() {
+        String archivo = "src/data/turnos.json";
         try {
-            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
+            JSONObject json = new JSONObject(JSONUtiles.leer(archivo));
             JSONArray jTurnos = json.getJSONArray("turnos");
             return mapeoTurnos(jTurnos);
         } catch (JSONException e) {
             throw new RuntimeException("Error al leer turnos: " + e.getMessage());
         }
     }
+
 
     public static void grabarTurnos(List<Turno> turnos) {
         JSONArray jTurnos = new JSONArray();

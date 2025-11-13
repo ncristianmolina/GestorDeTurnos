@@ -17,7 +17,7 @@ import java.util.List;
 
 public class gestionJSONPersona {
 
-    private static final String ARCHIVO = "persona.json";
+    private static final String ARCHIVO = "src/data/persona.json";
 
     public static Persona mapeoPersona(JSONObject jPersona) {
         Persona persona;
@@ -62,14 +62,16 @@ public class gestionJSONPersona {
     }
 
     public static List<Persona> leerPersonas() {
+        String archivo = "src/data/persona.json";
         try {
-            JSONObject json = new JSONObject(JSONUtiles.leer(ARCHIVO));
-            JSONArray jPersonas = json.getJSONArray("personas");
+            JSONObject json = new JSONObject(JSONUtiles.leer(archivo));
+            JSONArray jPersonas = json.getJSONArray("persona");
             return mapeoPersonas(jPersonas);
         } catch (JSONException e) {
             throw new RuntimeException("Error al leer personas: " + e.getMessage());
         }
     }
+
 
     public static void grabarPersonas(List<Persona> personas) {
         JSONArray jPersonas = new JSONArray();
